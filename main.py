@@ -2,7 +2,7 @@ from antlr4 import *
 import sys, os
 import ast
 
-from src.cpplexer import cpplexer
+from gammar.cpplexer import cpplexer
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -19,5 +19,9 @@ if __name__ == "__main__":
         stream.fill()
         tokennum = stream.getNumberOfOnChannelTokens()
         tokens = stream.getTokens(0,tokennum)
-        for token in tokens:
-            print(token)
+
+        if(output_filename):
+            with open(output_filename, 'w') as f:
+                for token in tokens:
+                    f.write(str(token)+'\n')
+        exit(0)
