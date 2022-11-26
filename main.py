@@ -5,23 +5,18 @@ import ast
 from src.cpplexer import cpplexer
 
 if __name__ == "__main__":
-    # if(len(sys.argv) < 3):
-    #     print("too few arguments.",flush=True)
-    #     print("usage: python3 main.py <inputfilename> <outputfilename>",flush=True)
-    #     exit(1)
-    # else:
-        # filename = sys.argv[1]
-    #     outputfilename = sys.argv[2] 
-    # print(filename)      
-    filename = sys.argv[1]
-    print(filename)
-    input_stream = FileStream(filename)
-    print(input_stream)
-    # lexer
-    lexer = cpplexer(input_stream)
-    print(lexer)
-    stream = CommonTokenStream(lexer)
-    stream.fill()
-    tokens = stream.getTokens(0,20)
-    for token in tokens:
-        print(token)
+    if len(sys.argv) != 2:
+        print("Usage: python main.py (input_filename)")
+        exit(0)
+    else:
+        filename = sys.argv[1]
+        output_filename = filename.split(".")[0]+".ll"
+        input_stream = FileStream(filename)
+        # lexer
+        lexer = cpplexer(input_stream)
+        stream = CommonTokenStream(lexer)
+        stream.fill()
+        tokennum = stream.getNumberOfOnChannelTokens()
+        tokens = stream.getTokens(0,tokennum)
+        for token in tokens:
+            print(token)
