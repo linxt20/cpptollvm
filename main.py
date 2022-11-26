@@ -10,8 +10,9 @@ if __name__ == "__main__":
         exit(0)
     else:
         filename = sys.argv[1]
-        output_filename = filename.split(".")[0]+".ll"
+        output_filename = filename.split(".")[0]+"lexer.txt"
         input_stream = FileStream(filename)
+        print(input_stream)
         # lexer
         lexer = cpplexer(input_stream)
         stream = CommonTokenStream(lexer)
