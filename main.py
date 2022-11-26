@@ -21,4 +21,7 @@ if __name__ == "__main__":
     lexer = cpplexer(input_stream)
     print(lexer)
     stream = CommonTokenStream(lexer)
-    print(stream)
+    stream.fill()
+    tokens = stream.getTokens(0,20)
+    for token in tokens:
+        print(token)
