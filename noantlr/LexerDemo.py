@@ -175,6 +175,6 @@ if __name__ == '__main__':
         if t.token_name == 'EOF':
             exit(0)
         if t.attribute_value is not None:
-            output_file.write('<' + t.token_name + ',' + t.attribute_value + '>')
+            output_file.write('<' + t.token_name + ',' + t.attribute_value + '>\n')
         else:
-            output_file.write('<' + t.token_name + ',>')
+            output_file.write('<' + t.token_name + ',>\n')

@@ -2,7 +2,7 @@ from antlr4 import *
 import sys, os
 import ast
 
-from gammar.cpplexer import cpplexer
+from src.cpplexer import cpplexer
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
