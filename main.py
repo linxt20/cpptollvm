@@ -3,9 +3,9 @@ import sys, os
 import ast
 
 from src.cpplexer import cpplexer
-from src.cppparser import cpp20Parser
-from src.cppparserListener import cpp20ParserListener as cpp20Listener
-from src.cppparserVisitor import cpp20ParserVisitor as cpp20Visitor
+from src.cppparser import cppparser
+from src.cppparserListener import cppparserListener as cpp20Listener
+from src.cppparserVisitor import cppparserVisitor as cpp20Visitor
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -15,7 +15,7 @@ if __name__ == "__main__":
         filename = sys.argv[1]
         output_filename = filename.split(".")[0]+"lexer.txt"
         input_stream = FileStream(filename)
-        print(input_stream)
+        # print(input_stream)
         # lexer
         lexer = cpplexer(input_stream)
         stream = CommonTokenStream(lexer)
@@ -28,7 +28,10 @@ if __name__ == "__main__":
         #         for token in tokens:
         #             f.write(str(token)+'\n')
         # parser
-        parser = cpp20Parser(stream)
+        parser = cppparser(stream)
         tree = parser.translationUnit()
-        print(tree.toStringTree(recog=parser))
+        # print(tree.toStringTree(recog=parser))
+        if(output_filename):
+            with open(output_filename, 'w') as f:
+                f.write(str(tree.toStringTree(recog=parser)))
         exit(0)

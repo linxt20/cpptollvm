@@ -1,5 +1,3 @@
-#include<cstdio>
-
 int main(){
 	int i, j, n, min, index, temp;
 	int m[100];

@@ -1,5 +1,3 @@
-#include<cstdio>
-
 int main(){
 	int i = 0, j = 0;
 	char m[100];
