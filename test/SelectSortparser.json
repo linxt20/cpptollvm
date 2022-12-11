@@ -1,0 +1,1801 @@
+{
+    "type": "TranslationUnit",
+    "content": "intmain(){inti,j,n,min,index,temp;intm[100];scanf...(too long)",
+    "children": [
+        {
+            "type": "Declaration",
+            "content": "intmain(){inti,j,n,min,index,temp;intm[100];scanf...(too long)",
+            "children": [
+                {
+                    "type": "FunctionDef",
+                    "content": "intmain(){inti,j,n,min,index,temp;intm[100];scanf...(too long)",
+                    "children": [
+                        {
+                            "type": "TypeSpecifier",
+                            "content": "int",
+                            "children": [
+                                {
+                                    "type": "IntegerTypeSpecifier",
+                                    "content": "int",
+                                    "children": [
+                                        {
+                                            "type": "int",
+                                            "content": "int",
+                                            "children": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "main",
+                            "content": "main",
+                            "children": []
+                        },
+                        {
+                            "type": "(",
+                            "content": "(",
+                            "children": []
+                        },
+                        {
+                            "type": ")",
+                            "content": ")",
+                            "children": []
+                        },
+                        {
+                            "type": "Block",
+                            "content": "{inti,j,n,min,index,temp;intm[100];scanf(\"%d\",&...(too long)",
+                            "children": [
+                                {
+                                    "type": "{",
+                                    "content": "{",
+                                    "children": []
+                                },
+                                {
+                                    "type": "Statement",
+                                    "content": "inti,j,n,min,index,temp;",
+                                    "children": [
+                                        {
+                                            "type": "VariableDeclarator",
+                                            "content": "inti,j,n,min,index,temp;",
+                                            "children": [
+                                                {
+                                                    "type": "TypeSpecifier",
+                                                    "content": "int",
+                                                    "children": [
+                                                        {
+                                                            "type": "IntegerTypeSpecifier",
+                                                            "content": "int",
+                                                            "children": [
+                                                                {
+                                                                    "type": "int",
+                                                                    "content": "int",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "VarDeclWithoutInit",
+                                                    "content": "i",
+                                                    "children": [
+                                                        {
+                                                            "type": "i",
+                                                            "content": "i",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ",",
+                                                    "content": ",",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "VarDeclWithoutInit",
+                                                    "content": "j",
+                                                    "children": [
+                                                        {
+                                                            "type": "j",
+                                                            "content": "j",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ",",
+                                                    "content": ",",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "VarDeclWithoutInit",
+                                                    "content": "n",
+                                                    "children": [
+                                                        {
+                                                            "type": "n",
+                                                            "content": "n",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ",",
+                                                    "content": ",",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "VarDeclWithoutInit",
+                                                    "content": "min",
+                                                    "children": [
+                                                        {
+                                                            "type": "min",
+                                                            "content": "min",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ",",
+                                                    "content": ",",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "VarDeclWithoutInit",
+                                                    "content": "index",
+                                                    "children": [
+                                                        {
+                                                            "type": "index",
+                                                            "content": "index",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ",",
+                                                    "content": ",",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "VarDeclWithoutInit",
+                                                    "content": "temp",
+                                                    "children": [
+                                                        {
+                                                            "type": "temp",
+                                                            "content": "temp",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ";",
+                                                    "content": ";",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Statement",
+                                    "content": "intm[100];",
+                                    "children": [
+                                        {
+                                            "type": "NormalArrDecl",
+                                            "content": "intm[100];",
+                                            "children": [
+                                                {
+                                                    "type": "TypeSpecifier",
+                                                    "content": "int",
+                                                    "children": [
+                                                        {
+                                                            "type": "IntegerTypeSpecifier",
+                                                            "content": "int",
+                                                            "children": [
+                                                                {
+                                                                    "type": "int",
+                                                                    "content": "int",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "m",
+                                                    "content": "m",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "[",
+                                                    "content": "[",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "100",
+                                                    "content": "100",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "]",
+                                                    "content": "]",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": ";",
+                                                    "content": ";",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Statement",
+                                    "content": "scanf(\"%d\",&n);",
+                                    "children": [
+                                        {
+                                            "type": "Expression",
+                                            "content": "scanf(\"%d\",&n)",
+                                            "children": [
+                                                {
+                                                    "type": "FunctionCall",
+                                                    "content": "scanf(\"%d\",&n)",
+                                                    "children": [
+                                                        {
+                                                            "type": "scanf",
+                                                            "content": "scanf",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "type": "(",
+                                                            "content": "(",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "\"%d\"",
+                                                            "children": [
+                                                                {
+                                                                    "type": "Literals",
+                                                                    "content": "\"%d\"",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "StringLiteral",
+                                                                            "content": "\"%d\"",
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "\"%d\"",
+                                                                                    "content": "\"%d\"",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": ",",
+                                                            "content": ",",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "&n",
+                                                            "children": [
+                                                                {
+                                                                    "type": "&",
+                                                                    "content": "&",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "type": "LeftExpression",
+                                                                    "content": "n",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "n",
+                                                                            "content": "n",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": ")",
+                                                            "content": ")",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": ";",
+                                            "content": ";",
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Statement",
+                                    "content": "for(i=0;i<n;i++){scanf(\"%d\",m+i);}",
+                                    "children": [
+                                        {
+                                            "type": "ForStatement",
+                                            "content": "for(i=0;i<n;i++){scanf(\"%d\",m+i);}",
+                                            "children": [
+                                                {
+                                                    "type": "for",
+                                                    "content": "for",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "(",
+                                                    "content": "(",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "ForExprSet",
+                                                    "content": "i=0",
+                                                    "children": [
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "i=0",
+                                                            "children": [
+                                                                {
+                                                                    "type": "LeftExpression",
+                                                                    "content": "i",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "i",
+                                                                            "content": "i",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "=",
+                                                                    "content": "=",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "type": "Expression",
+                                                                    "content": "0",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "Literals",
+                                                                            "content": "0",
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "IntegerLiteral",
+                                                                                    "content": "0",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "0",
+                                                                                            "content": "0",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ";",
+                                                    "content": ";",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "Expression",
+                                                    "content": "i<n",
+                                                    "children": [
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "i",
+                                                            "children": [
+                                                                {
+                                                                    "type": "i",
+                                                                    "content": "i",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "<",
+                                                            "content": "<",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "n",
+                                                            "children": [
+                                                                {
+                                                                    "type": "n",
+                                                                    "content": "n",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ";",
+                                                    "content": ";",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "ForExprSet",
+                                                    "content": "i++",
+                                                    "children": [
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "i++",
+                                                            "children": [
+                                                                {
+                                                                    "type": "LeftExpression",
+                                                                    "content": "i",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "i",
+                                                                            "content": "i",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "++",
+                                                                    "content": "++",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ")",
+                                                    "content": ")",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "Statement",
+                                                    "content": "{scanf(\"%d\",m+i);}",
+                                                    "children": [
+                                                        {
+                                                            "type": "Block",
+                                                            "content": "{scanf(\"%d\",m+i);}",
+                                                            "children": [
+                                                                {
+                                                                    "type": "{",
+                                                                    "content": "{",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "type": "Statement",
+                                                                    "content": "scanf(\"%d\",m+i);",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "Expression",
+                                                                            "content": "scanf(\"%d\",m+i)",
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "FunctionCall",
+                                                                                    "content": "scanf(\"%d\",m+i)",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "scanf",
+                                                                                            "content": "scanf",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "(",
+                                                                                            "content": "(",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "Expression",
+                                                                                            "content": "\"%d\"",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "type": "Literals",
+                                                                                                    "content": "\"%d\"",
+                                                                                                    "children": [
+                                                                                                        {
+                                                                                                            "type": "StringLiteral",
+                                                                                                            "content": "\"%d\"",
+                                                                                                            "children": [
+                                                                                                                {
+                                                                                                                    "type": "\"%d\"",
+                                                                                                                    "content": "\"%d\"",
+                                                                                                                    "children": []
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ]
+                                                                                                }
+                                                                                            ]
+                                                                                        },
+                                                                                        {
+                                                                                            "type": ",",
+                                                                                            "content": ",",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "Expression",
+                                                                                            "content": "m+i",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "type": "Expression",
+                                                                                                    "content": "m",
+                                                                                                    "children": [
+                                                                                                        {
+                                                                                                            "type": "m",
+                                                                                                            "content": "m",
+                                                                                                            "children": []
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "+",
+                                                                                                    "content": "+",
+                                                                                                    "children": []
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "Expression",
+                                                                                                    "content": "i",
+                                                                                                    "children": [
+                                                                                                        {
+                                                                                                            "type": "i",
+                                                                                                            "content": "i",
+                                                                                                            "children": []
+                                                                                                        }
+                                                                                                    ]
+                                                                                                }
+                                                                                            ]
+                                                                                        },
+                                                                                        {
+                                                                                            "type": ")",
+                                                                                            "content": ")",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": ";",
+                                                                            "content": ";",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "}",
+                                                                    "content": "}",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Statement",
+                                    "content": "for(i=0;i<n;i++){min=m[i];index=i;for(j=i+1;j<n;j...(too long)",
+                                    "children": [
+                                        {
+                                            "type": "ForStatement",
+                                            "content": "for(i=0;i<n;i++){min=m[i];index=i;for(j=i+1;j<n;j...(too long)",
+                                            "children": [
+                                                {
+                                                    "type": "for",
+                                                    "content": "for",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "(",
+                                                    "content": "(",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "ForExprSet",
+                                                    "content": "i=0",
+                                                    "children": [
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "i=0",
+                                                            "children": [
+                                                                {
+                                                                    "type": "LeftExpression",
+                                                                    "content": "i",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "i",
+                                                                            "content": "i",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "=",
+                                                                    "content": "=",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "type": "Expression",
+                                                                    "content": "0",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "Literals",
+                                                                            "content": "0",
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "IntegerLiteral",
+                                                                                    "content": "0",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "0",
+                                                                                            "content": "0",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ";",
+                                                    "content": ";",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "Expression",
+                                                    "content": "i<n",
+                                                    "children": [
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "i",
+                                                            "children": [
+                                                                {
+                                                                    "type": "i",
+                                                                    "content": "i",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "<",
+                                                            "content": "<",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "n",
+                                                            "children": [
+                                                                {
+                                                                    "type": "n",
+                                                                    "content": "n",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ";",
+                                                    "content": ";",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "ForExprSet",
+                                                    "content": "i++",
+                                                    "children": [
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "i++",
+                                                            "children": [
+                                                                {
+                                                                    "type": "LeftExpression",
+                                                                    "content": "i",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "i",
+                                                                            "content": "i",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "++",
+                                                                    "content": "++",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ")",
+                                                    "content": ")",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "Statement",
+                                                    "content": "{min=m[i];index=i;for(j=i+1;j<n;j++){if(min>m[j])...(too long)",
+                                                    "children": [
+                                                        {
+                                                            "type": "Block",
+                                                            "content": "{min=m[i];index=i;for(j=i+1;j<n;j++){if(min>m[j])...(too long)",
+                                                            "children": [
+                                                                {
+                                                                    "type": "{",
+                                                                    "content": "{",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "type": "Statement",
+                                                                    "content": "min=m[i];",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "Expression",
+                                                                            "content": "min=m[i]",
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "LeftExpression",
+                                                                                    "content": "min",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "min",
+                                                                                            "content": "min",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "type": "=",
+                                                                                    "content": "=",
+                                                                                    "children": []
+                                                                                },
+                                                                                {
+                                                                                    "type": "Expression",
+                                                                                    "content": "m[i]",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "m",
+                                                                                            "content": "m",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "[",
+                                                                                            "content": "[",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "Expression",
+                                                                                            "content": "i",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "type": "i",
+                                                                                                    "content": "i",
+                                                                                                    "children": []
+                                                                                                }
+                                                                                            ]
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "]",
+                                                                                            "content": "]",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": ";",
+                                                                            "content": ";",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "Statement",
+                                                                    "content": "index=i;",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "Expression",
+                                                                            "content": "index=i",
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "LeftExpression",
+                                                                                    "content": "index",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "index",
+                                                                                            "content": "index",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "type": "=",
+                                                                                    "content": "=",
+                                                                                    "children": []
+                                                                                },
+                                                                                {
+                                                                                    "type": "Expression",
+                                                                                    "content": "i",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "i",
+                                                                                            "content": "i",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": ";",
+                                                                            "content": ";",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "Statement",
+                                                                    "content": "for(j=i+1;j<n;j++){if(min>m[j]){min=m[j];index=j;...(too long)",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "ForStatement",
+                                                                            "content": "for(j=i+1;j<n;j++){if(min>m[j]){min=m[j];index=j;...(too long)",
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "for",
+                                                                                    "content": "for",
+                                                                                    "children": []
+                                                                                },
+                                                                                {
+                                                                                    "type": "(",
+                                                                                    "content": "(",
+                                                                                    "children": []
+                                                                                },
+                                                                                {
+                                                                                    "type": "ForExprSet",
+                                                                                    "content": "j=i+1",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "Expression",
+                                                                                            "content": "j=i+1",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "type": "LeftExpression",
+                                                                                                    "content": "j",
+                                                                                                    "children": [
+                                                                                                        {
+                                                                                                            "type": "j",
+                                                                                                            "content": "j",
+                                                                                                            "children": []
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "=",
+                                                                                                    "content": "=",
+                                                                                                    "children": []
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "Expression",
+                                                                                                    "content": "i+1",
+                                                                                                    "children": [
+                                                                                                        {
+                                                                                                            "type": "Expression",
+                                                                                                            "content": "i",
+                                                                                                            "children": [
+                                                                                                                {
+                                                                                                                    "type": "i",
+                                                                                                                    "content": "i",
+                                                                                                                    "children": []
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "+",
+                                                                                                            "content": "+",
+                                                                                                            "children": []
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "Expression",
+                                                                                                            "content": "1",
+                                                                                                            "children": [
+                                                                                                                {
+                                                                                                                    "type": "Literals",
+                                                                                                                    "content": "1",
+                                                                                                                    "children": [
+                                                                                                                        {
+                                                                                                                            "type": "IntegerLiteral",
+                                                                                                                            "content": "1",
+                                                                                                                            "children": [
+                                                                                                                                {
+                                                                                                                                    "type": "1",
+                                                                                                                                    "content": "1",
+                                                                                                                                    "children": []
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ]
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "type": ";",
+                                                                                    "content": ";",
+                                                                                    "children": []
+                                                                                },
+                                                                                {
+                                                                                    "type": "Expression",
+                                                                                    "content": "j<n",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "Expression",
+                                                                                            "content": "j",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "type": "j",
+                                                                                                    "content": "j",
+                                                                                                    "children": []
+                                                                                                }
+                                                                                            ]
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "<",
+                                                                                            "content": "<",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "Expression",
+                                                                                            "content": "n",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "type": "n",
+                                                                                                    "content": "n",
+                                                                                                    "children": []
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "type": ";",
+                                                                                    "content": ";",
+                                                                                    "children": []
+                                                                                },
+                                                                                {
+                                                                                    "type": "ForExprSet",
+                                                                                    "content": "j++",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "Expression",
+                                                                                            "content": "j++",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "type": "LeftExpression",
+                                                                                                    "content": "j",
+                                                                                                    "children": [
+                                                                                                        {
+                                                                                                            "type": "j",
+                                                                                                            "content": "j",
+                                                                                                            "children": []
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "++",
+                                                                                                    "content": "++",
+                                                                                                    "children": []
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "type": ")",
+                                                                                    "content": ")",
+                                                                                    "children": []
+                                                                                },
+                                                                                {
+                                                                                    "type": "Statement",
+                                                                                    "content": "{if(min>m[j]){min=m[j];index=j;}}",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "Block",
+                                                                                            "content": "{if(min>m[j]){min=m[j];index=j;}}",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "type": "{",
+                                                                                                    "content": "{",
+                                                                                                    "children": []
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "Statement",
+                                                                                                    "content": "if(min>m[j]){min=m[j];index=j;}",
+                                                                                                    "children": [
+                                                                                                        {
+                                                                                                            "type": "IfStatement",
+                                                                                                            "content": "if(min>m[j]){min=m[j];index=j;}",
+                                                                                                            "children": [
+                                                                                                                {
+                                                                                                                    "type": "if",
+                                                                                                                    "content": "if",
+                                                                                                                    "children": []
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type": "(",
+                                                                                                                    "content": "(",
+                                                                                                                    "children": []
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type": "Expression",
+                                                                                                                    "content": "min>m[j]",
+                                                                                                                    "children": [
+                                                                                                                        {
+                                                                                                                            "type": "Expression",
+                                                                                                                            "content": "min",
+                                                                                                                            "children": [
+                                                                                                                                {
+                                                                                                                                    "type": "min",
+                                                                                                                                    "content": "min",
+                                                                                                                                    "children": []
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "type": ">",
+                                                                                                                            "content": ">",
+                                                                                                                            "children": []
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "type": "Expression",
+                                                                                                                            "content": "m[j]",
+                                                                                                                            "children": [
+                                                                                                                                {
+                                                                                                                                    "type": "m",
+                                                                                                                                    "content": "m",
+                                                                                                                                    "children": []
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                    "type": "[",
+                                                                                                                                    "content": "[",
+                                                                                                                                    "children": []
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                    "type": "Expression",
+                                                                                                                                    "content": "j",
+                                                                                                                                    "children": [
+                                                                                                                                        {
+                                                                                                                                            "type": "j",
+                                                                                                                                            "content": "j",
+                                                                                                                                            "children": []
+                                                                                                                                        }
+                                                                                                                                    ]
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                    "type": "]",
+                                                                                                                                    "content": "]",
+                                                                                                                                    "children": []
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type": ")",
+                                                                                                                    "content": ")",
+                                                                                                                    "children": []
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type": "Statement",
+                                                                                                                    "content": "{min=m[j];index=j;}",
+                                                                                                                    "children": [
+                                                                                                                        {
+                                                                                                                            "type": "Block",
+                                                                                                                            "content": "{min=m[j];index=j;}",
+                                                                                                                            "children": [
+                                                                                                                                {
+                                                                                                                                    "type": "{",
+                                                                                                                                    "content": "{",
+                                                                                                                                    "children": []
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                    "type": "Statement",
+                                                                                                                                    "content": "min=m[j];",
+                                                                                                                                    "children": [
+                                                                                                                                        {
+                                                                                                                                            "type": "Expression",
+                                                                                                                                            "content": "min=m[j]",
+                                                                                                                                            "children": [
+                                                                                                                                                {
+                                                                                                                                                    "type": "LeftExpression",
+                                                                                                                                                    "content": "min",
+                                                                                                                                                    "children": [
+                                                                                                                                                        {
+                                                                                                                                                            "type": "min",
+                                                                                                                                                            "content": "min",
+                                                                                                                                                            "children": []
+                                                                                                                                                        }
+                                                                                                                                                    ]
+                                                                                                                                                },
+                                                                                                                                                {
+                                                                                                                                                    "type": "=",
+                                                                                                                                                    "content": "=",
+                                                                                                                                                    "children": []
+                                                                                                                                                },
+                                                                                                                                                {
+                                                                                                                                                    "type": "Expression",
+                                                                                                                                                    "content": "m[j]",
+                                                                                                                                                    "children": [
+                                                                                                                                                        {
+                                                                                                                                                            "type": "m",
+                                                                                                                                                            "content": "m",
+                                                                                                                                                            "children": []
+                                                                                                                                                        },
+                                                                                                                                                        {
+                                                                                                                                                            "type": "[",
+                                                                                                                                                            "content": "[",
+                                                                                                                                                            "children": []
+                                                                                                                                                        },
+                                                                                                                                                        {
+                                                                                                                                                            "type": "Expression",
+                                                                                                                                                            "content": "j",
+                                                                                                                                                            "children": [
+                                                                                                                                                                {
+                                                                                                                                                                    "type": "j",
+                                                                                                                                                                    "content": "j",
+                                                                                                                                                                    "children": []
+                                                                                                                                                                }
+                                                                                                                                                            ]
+                                                                                                                                                        },
+                                                                                                                                                        {
+                                                                                                                                                            "type": "]",
+                                                                                                                                                            "content": "]",
+                                                                                                                                                            "children": []
+                                                                                                                                                        }
+                                                                                                                                                    ]
+                                                                                                                                                }
+                                                                                                                                            ]
+                                                                                                                                        },
+                                                                                                                                        {
+                                                                                                                                            "type": ";",
+                                                                                                                                            "content": ";",
+                                                                                                                                            "children": []
+                                                                                                                                        }
+                                                                                                                                    ]
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                    "type": "Statement",
+                                                                                                                                    "content": "index=j;",
+                                                                                                                                    "children": [
+                                                                                                                                        {
+                                                                                                                                            "type": "Expression",
+                                                                                                                                            "content": "index=j",
+                                                                                                                                            "children": [
+                                                                                                                                                {
+                                                                                                                                                    "type": "LeftExpression",
+                                                                                                                                                    "content": "index",
+                                                                                                                                                    "children": [
+                                                                                                                                                        {
+                                                                                                                                                            "type": "index",
+                                                                                                                                                            "content": "index",
+                                                                                                                                                            "children": []
+                                                                                                                                                        }
+                                                                                                                                                    ]
+                                                                                                                                                },
+                                                                                                                                                {
+                                                                                                                                                    "type": "=",
+                                                                                                                                                    "content": "=",
+                                                                                                                                                    "children": []
+                                                                                                                                                },
+                                                                                                                                                {
+                                                                                                                                                    "type": "Expression",
+                                                                                                                                                    "content": "j",
+                                                                                                                                                    "children": [
+                                                                                                                                                        {
+                                                                                                                                                            "type": "j",
+                                                                                                                                                            "content": "j",
+                                                                                                                                                            "children": []
+                                                                                                                                                        }
+                                                                                                                                                    ]
+                                                                                                                                                }
+                                                                                                                                            ]
+                                                                                                                                        },
+                                                                                                                                        {
+                                                                                                                                            "type": ";",
+                                                                                                                                            "content": ";",
+                                                                                                                                            "children": []
+                                                                                                                                        }
+                                                                                                                                    ]
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                    "type": "}",
+                                                                                                                                    "content": "}",
+                                                                                                                                    "children": []
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "}",
+                                                                                                    "content": "}",
+                                                                                                    "children": []
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "Statement",
+                                                                    "content": "temp=m[index];",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "Expression",
+                                                                            "content": "temp=m[index]",
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "LeftExpression",
+                                                                                    "content": "temp",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "temp",
+                                                                                            "content": "temp",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "type": "=",
+                                                                                    "content": "=",
+                                                                                    "children": []
+                                                                                },
+                                                                                {
+                                                                                    "type": "Expression",
+                                                                                    "content": "m[index]",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "m",
+                                                                                            "content": "m",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "[",
+                                                                                            "content": "[",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "Expression",
+                                                                                            "content": "index",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "type": "index",
+                                                                                                    "content": "index",
+                                                                                                    "children": []
+                                                                                                }
+                                                                                            ]
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "]",
+                                                                                            "content": "]",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": ";",
+                                                                            "content": ";",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "Statement",
+                                                                    "content": "m[index]=m[i];",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "Expression",
+                                                                            "content": "m[index]=m[i]",
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "LeftExpression",
+                                                                                    "content": "m[index]",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "m",
+                                                                                            "content": "m",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "[",
+                                                                                            "content": "[",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "Expression",
+                                                                                            "content": "index",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "type": "index",
+                                                                                                    "content": "index",
+                                                                                                    "children": []
+                                                                                                }
+                                                                                            ]
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "]",
+                                                                                            "content": "]",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "type": "=",
+                                                                                    "content": "=",
+                                                                                    "children": []
+                                                                                },
+                                                                                {
+                                                                                    "type": "Expression",
+                                                                                    "content": "m[i]",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "m",
+                                                                                            "content": "m",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "[",
+                                                                                            "content": "[",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "Expression",
+                                                                                            "content": "i",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "type": "i",
+                                                                                                    "content": "i",
+                                                                                                    "children": []
+                                                                                                }
+                                                                                            ]
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "]",
+                                                                                            "content": "]",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": ";",
+                                                                            "content": ";",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "Statement",
+                                                                    "content": "m[i]=temp;",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "Expression",
+                                                                            "content": "m[i]=temp",
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "LeftExpression",
+                                                                                    "content": "m[i]",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "m",
+                                                                                            "content": "m",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "[",
+                                                                                            "content": "[",
+                                                                                            "children": []
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "Expression",
+                                                                                            "content": "i",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "type": "i",
+                                                                                                    "content": "i",
+                                                                                                    "children": []
+                                                                                                }
+                                                                                            ]
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "]",
+                                                                                            "content": "]",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "type": "=",
+                                                                                    "content": "=",
+                                                                                    "children": []
+                                                                                },
+                                                                                {
+                                                                                    "type": "Expression",
+                                                                                    "content": "temp",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "temp",
+                                                                                            "content": "temp",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": ";",
+                                                                            "content": ";",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "}",
+                                                                    "content": "}",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Statement",
+                                    "content": "for(i=0;i<n;i++)printf(\"%d\",m[i]);",
+                                    "children": [
+                                        {
+                                            "type": "ForStatement",
+                                            "content": "for(i=0;i<n;i++)printf(\"%d\",m[i]);",
+                                            "children": [
+                                                {
+                                                    "type": "for",
+                                                    "content": "for",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "(",
+                                                    "content": "(",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "ForExprSet",
+                                                    "content": "i=0",
+                                                    "children": [
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "i=0",
+                                                            "children": [
+                                                                {
+                                                                    "type": "LeftExpression",
+                                                                    "content": "i",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "i",
+                                                                            "content": "i",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "=",
+                                                                    "content": "=",
+                                                                    "children": []
+                                                                },
+                                                                {
+                                                                    "type": "Expression",
+                                                                    "content": "0",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "Literals",
+                                                                            "content": "0",
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "IntegerLiteral",
+                                                                                    "content": "0",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "0",
+                                                                                            "content": "0",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ";",
+                                                    "content": ";",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "Expression",
+                                                    "content": "i<n",
+                                                    "children": [
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "i",
+                                                            "children": [
+                                                                {
+                                                                    "type": "i",
+                                                                    "content": "i",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "<",
+                                                            "content": "<",
+                                                            "children": []
+                                                        },
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "n",
+                                                            "children": [
+                                                                {
+                                                                    "type": "n",
+                                                                    "content": "n",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ";",
+                                                    "content": ";",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "ForExprSet",
+                                                    "content": "i++",
+                                                    "children": [
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "i++",
+                                                            "children": [
+                                                                {
+                                                                    "type": "LeftExpression",
+                                                                    "content": "i",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "i",
+                                                                            "content": "i",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "++",
+                                                                    "content": "++",
+                                                                    "children": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ")",
+                                                    "content": ")",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "Statement",
+                                                    "content": "printf(\"%d\",m[i]);",
+                                                    "children": [
+                                                        {
+                                                            "type": "Expression",
+                                                            "content": "printf(\"%d\",m[i])",
+                                                            "children": [
+                                                                {
+                                                                    "type": "FunctionCall",
+                                                                    "content": "printf(\"%d\",m[i])",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "printf",
+                                                                            "content": "printf",
+                                                                            "children": []
+                                                                        },
+                                                                        {
+                                                                            "type": "(",
+                                                                            "content": "(",
+                                                                            "children": []
+                                                                        },
+                                                                        {
+                                                                            "type": "Expression",
+                                                                            "content": "\"%d\"",
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "Literals",
+                                                                                    "content": "\"%d\"",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "StringLiteral",
+                                                                                            "content": "\"%d\"",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "type": "\"%d\"",
+                                                                                                    "content": "\"%d\"",
+                                                                                                    "children": []
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": ",",
+                                                                            "content": ",",
+                                                                            "children": []
+                                                                        },
+                                                                        {
+                                                                            "type": "Expression",
+                                                                            "content": "m[i]",
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "m",
+                                                                                    "content": "m",
+                                                                                    "children": []
+                                                                                },
+                                                                                {
+                                                                                    "type": "[",
+                                                                                    "content": "[",
+                                                                                    "children": []
+                                                                                },
+                                                                                {
+                                                                                    "type": "Expression",
+                                                                                    "content": "i",
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "type": "i",
+                                                                                            "content": "i",
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "type": "]",
+                                                                                    "content": "]",
+                                                                                    "children": []
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": ")",
+                                                                            "content": ")",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": ";",
+                                                            "content": ";",
+                                                            "children": []
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Statement",
+                                    "content": "return0;",
+                                    "children": [
+                                        {
+                                            "type": "ReturnStatement",
+                                            "content": "return0;",
+                                            "children": [
+                                                {
+                                                    "type": "return",
+                                                    "content": "return",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "type": "Expression",
+                                                    "content": "0",
+                                                    "children": [
+                                                        {
+                                                            "type": "Literals",
+                                                            "content": "0",
+                                                            "children": [
+                                                                {
+                                                                    "type": "IntegerLiteral",
+                                                                    "content": "0",
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "0",
+                                                                            "content": "0",
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": ";",
+                                                    "content": ";",
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "}",
+                                    "content": "}",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "<EOF>",
+            "content": "<EOF>",
+            "children": []
+        }
+    ]
+}
