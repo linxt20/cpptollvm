@@ -9,5 +9,5 @@ $(OBJS):%.txt: %.cpp
 	@echo "TEST $^"
 	python main.py $^
 
-cleantxt:
-	del test\*.json
+cleanjson:
+	rm test/*.json
