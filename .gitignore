@@ -129,7 +129,10 @@ dmypy.json
 .pyre/
 
 # Pycharm local settings
-.idea
+.idea/
+
+# VSCode local settings
+.vscode/
 
 # Auto-generated antlr files by VSCode extension (?)
 grammar/.antlr
