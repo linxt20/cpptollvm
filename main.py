@@ -20,7 +20,6 @@ def translate(text:str):
 def printTree(tree,k):
     global jsonString
     content = translate(tree.getText())
-    print(content)
     if tree.getChildCount() == 0 :
         jsonString += ("{ \"" + f"type\": \"{content}\",  \"content\": \"{content}\", \"children\": []" + "},")
         return
