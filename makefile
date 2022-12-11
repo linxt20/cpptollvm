@@ -14,4 +14,4 @@ $(OBJS):%.txt: %.cpp
 	python main.py $^
 
 cleantxt:
-	del test\*.txt
+	del test\*.txt test\*.json
