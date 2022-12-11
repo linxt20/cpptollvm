@@ -130,3 +130,6 @@ dmypy.json
 
 # Pycharm local settings
 .idea
+
+# Auto-generated antlr files by VSCode extension (?)
+grammar/.antlr
