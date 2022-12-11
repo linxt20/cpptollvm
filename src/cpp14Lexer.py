@@ -1,4 +1,4 @@
-# Generated from grammar/cpplexer.g4 by ANTLR 4.11.1
+# Generated from grammar/cpp14Lexer.g4 by ANTLR 4.11.1
 from antlr4 import *
 from io import StringIO
 import sys
@@ -273,7 +273,7 @@ def serializedATN():
         0
     ]
 
-class cpplexer(Lexer):
+class cpp14Lexer(Lexer):
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -432,7 +432,7 @@ class cpplexer(Lexer):
                   "Escapesequence", "Simpleescapesequence", "Octalescapesequence", 
                   "Hexadecimalescapesequence", "Universalcharactername" ]
 
-    grammarFileName = "cpplexer.g4"
+    grammarFileName = "cpp14Lexer.g4"
 
     def __init__(self, input=None, output:TextIO = sys.stdout):
         super().__init__(input, output)

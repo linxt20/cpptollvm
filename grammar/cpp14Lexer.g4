@@ -1,4 +1,4 @@
-lexer grammar cpplexer;
+lexer grammar cpp14Lexer;
 
 LT: '<';
 GT: '>';

@@ -12,7 +12,7 @@
 由 ANTLR 指令根据g4生成对应代码文件: make antlr（或者直接使用make）
 运行程序: python main.py <inputfilename> 
 简单实例: python main.py test\SelectSort.cpp
-![](image/Demo_with_antlr.jpg)
+![](image/Demo_with_antlr.jpg)##
 
 - 不采用antlr工具
 使用方法：`python3 LexerDemo.py <inputfilename> <outputfilename>`

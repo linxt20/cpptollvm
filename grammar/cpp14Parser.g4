@@ -1,7 +1,7 @@
-parser grammar cppparser;
+parser grammar cpp14Parser;
 
 options {
-    tokenVocab = cpplexer;
+    tokenVocab = cpp14Lexer;
 }
 
 
