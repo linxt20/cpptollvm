@@ -854,13 +854,13 @@ class NewCpp14Visitor(cpp14Visitor):
     # Visit a parse tree produced by cpp14Parser#integerTypeSpecifier.
     def visitIntegerTypeSpecifier(self, ctx: cpp14Parser.IntegerTypeSpecifierContext):
         text = ctx.getText()
-        if text is 'short':
+        if text == 'short':
             return int16
-        elif text is 'int':
+        elif text == 'int':
             return int32
-        elif text is 'long':
+        elif text == 'long':
             return int32
-        elif text is 'longlong':
+        elif text == 'longlong':
             return int64
 
     # Visit a parse tree produced by cpp14Parser#realTypeSpecifier.
