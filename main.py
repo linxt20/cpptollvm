@@ -386,13 +386,13 @@ class NewCpp14Visitor(cpp14Visitor):
 
     # Visit a parse tree produced by cpp14Parser#functionCall.
     def visitFunctionCall(self, ctx: cpp14Parser.FunctionCallContext):
-        '''
+        """
         对应语法: functionCall : Identifier LPAREN (expression (COMMA expression)*)? RPAREN;
-        '''
+        """
         builder = self.irBuilder[-1]
         function_name = ctx.Identifier().getText()
-        property = self.symbolTable.getProperty(function_name)
-        if property.get_type().__class__.__name__ == ir.FunctionType.__name__:
+        _property = self.symbolTable.getProperty(function_name)
+        if _property.get_type().__class__.__name__ == ir.FunctionType.__name__:
             # 参数列表
             param_list = []
             for expression in ctx.expression():
@@ -400,20 +400,20 @@ class NewCpp14Visitor(cpp14Visitor):
                 param_list.append(expression_value['value'])
             # 检查合法性
 
-            if property.get_type().var_arg:
+            if _property.get_type().var_arg:
                 # 只和vararg之前的比较
-                valid_param_list = param_list[:len(property.get_type().args)]
+                valid_param_list = param_list[:len(_property.get_type().args)]
             else:
                 valid_param_list = param_list
 
-            if len(valid_param_list) != len(property.get_type().args):
+            if len(valid_param_list) != len(_property.get_type().args):
                 raise BaseException("wrong args number")
-            for real_param, param in zip(valid_param_list, property.get_type().args):
+            for real_param, param in zip(valid_param_list, _property.get_type().args):
                 if param != real_param.type:
                     raise BaseException("wrong args type", real_param.type, param)
             # 函数调用
-            ret_value = builder.call(property.get_value(), param_list, name='', cconv=None, tail=False, fastmath=())
-            ret_type = property.get_type().return_type
+            ret_value = builder.call(_property.get_value(), param_list, name='', cconv=None, tail=False, fastmath=())
+            ret_type = _property.get_type().return_type
             return {
                 "type": ret_type,
                 'value': ret_value
@@ -423,9 +423,9 @@ class NewCpp14Visitor(cpp14Visitor):
 
     # Visit a parse tree produced by cpp14Parser#ifStatement.
     def visitIfStatement(self, ctx: cpp14Parser.IfStatementContext):
-        '''
+        """
         ifStatement : IF LPAREN expression RPAREN statement (ELSE statement)?;
-        '''
+        """
 
         self.symbolTable.enterScope()
         builder = self.irBuilder[-1]
@@ -504,14 +504,14 @@ class NewCpp14Visitor(cpp14Visitor):
         right = self.visit(ctx.getChild(1))
 
         left, right = expr_type_convert(left, right, self.irBuilder[-1])
-        operation = '=='
+
         if left['type'] == double:
-            return_value = judge_builder.fcmp_ordered(operation, left['value'], right['value'])
+            return_value = judge_builder.fcmp_ordered('==', left['value'], right['value'])
         else:
             if left['signed']:
-                return_value = judge_builder.icmp_signed(operation, left['value'], right['value'])
+                return_value = judge_builder.icmp_signed('==', left['value'], right['value'])
             else:
-                return_value = judge_builder.icmp_unsigned(operation, left['value'], right['value'])
+                return_value = judge_builder.icmp_unsigned('==', left['value'], right['value'])
 
         judge_builder.cbranch(return_value, statement_block, target_judge_block)
 
@@ -580,7 +580,7 @@ class NewCpp14Visitor(cpp14Visitor):
         # while_statement_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(while_statement_block))
-        #print("this block to break", self.blockToBreak[-1])
+        # print("this block to break", self.blockToBreak[-1])
         self.visit(ctx.getChild(4))
         if not self.irBuilder[-1].block.is_terminated:
             self.irBuilder[-1].branch(expression_block)
