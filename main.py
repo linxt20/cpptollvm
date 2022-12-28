@@ -359,7 +359,8 @@ class NewCpp14Visitor(cpp14Visitor):
     # Visit a parse tree produced by cpp14Parser#functionCall.
     def visitFunctionCall(self, ctx:cpp14Parser.FunctionCallContext):
         builder = self.irBuilder[-1]
-        property = self.symbolTable.getProperty(ctx.Identifier().getText())
+        functionName = ctx.Identifier().getText()
+        property = self.symbolTable.getProperty(functionName)
         if(property.get_type().__class__.__name__ != ir.FunctionType.__name__):
             raise BaseException("not a function name")
         else:
@@ -886,7 +887,7 @@ if __name__ == "__main__":
         exit(0)
     else:
         filename = sys.argv[1]
-        outputFilename = filename.split(".")[0]+"ll"
+        outputFilename = filename.split(".")[0]+".ll"
         inputStream = FileStream(filename)
 
         lexer = cpp14Lexer(inputStream)
