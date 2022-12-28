@@ -728,7 +728,7 @@ class NewCpp14Visitor(cpp14Visitor):
             new_var = GlobalVariable(self.irModule, self.type, ctx.Identifier().getText())
             new_var.linkage = 'internal'
             new_var.initializer = ir.Constant(self.type, None)
-            self.symbolTable.addGlobal(ctx.Identifier().getText(), NameProperty(_type=self.type, value=new_var))
+            self.symbolTable.addGlobal(ctx.Identifier().getText(), NameProperty(type=self.type, value=new_var))
         else:
             # 局部变量
             builder = self.irBuilder[-1]
@@ -737,7 +737,7 @@ class NewCpp14Visitor(cpp14Visitor):
             # 存上初值
             builder.store(ir.Constant(self.type, None), new_var)
             # 存到符号表里面
-            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(_type=self.type, value=new_var))
+            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(type=self.type, value=new_var))
 
     # Visit a parse tree produced by cpp14Parser#varDeclWithConstInit.
     def visitVarDeclWithConstInit(self, ctx: cpp14Parser.VarDeclWithConstInitContext):
@@ -745,7 +745,7 @@ class NewCpp14Visitor(cpp14Visitor):
             new_var = GlobalVariable(self.irModule, self.type, ctx.Identifier().getText())
             new_var.linkage = 'internal'
             new_var.initializer = ir.Constant(self.type, self.visit(ctx.constExpression())['value'])
-            self.symbolTable.addGlobal(ctx.Identifier().getText(), NameProperty(_type=self.type, value=new_var))
+            self.symbolTable.addGlobal(ctx.Identifier().getText(), NameProperty(type=self.type, value=new_var))
             # 只需要记录虚拟寄存器即可
         else:
             # 局部变量
@@ -755,7 +755,7 @@ class NewCpp14Visitor(cpp14Visitor):
             # 存上初值
             builder.store(self.visit(ctx.constExpression())['value'], new_var)
             # 存入符号表
-            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(_type=self.type, value=new_var))
+            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(type=self.type, value=new_var))
 ##########################################################################################
 
     # Visit a parse tree produced by cpp14Parser#varDeclWithInit.
@@ -764,7 +764,7 @@ class NewCpp14Visitor(cpp14Visitor):
             builder = self.irBuilder[-1]
             address = builder.alloca(self.type, name=ctx.Identifier().getText())
             builder.store(self.visit(ctx.expression())['value'], address)
-            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(_type=self.type, value=address))
+            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(type=self.type, value=address))
             return
 
         raise BaseException("Incorrect initialization of global variables")
@@ -796,7 +796,7 @@ class NewCpp14Visitor(cpp14Visitor):
             self.visit(ctx.typeSpecifier()), parameter_type_list, var_arg="varargs" in parameter_type_list
         )
         llvm_func = ir.Function(self.irModule, llvm_func_type, name=function_name)
-        self.symbolTable.addGlobal(function_name, NameProperty(_type=llvm_func_type, value=llvm_func))
+        self.symbolTable.addGlobal(function_name, NameProperty(type=llvm_func_type, value=llvm_func))
 
     # Visit a parse tree produced by cpp14Parser#functionDef.
     def visitFunctionDef(self, ctx: cpp14Parser.FunctionDefContext):
@@ -814,7 +814,7 @@ class NewCpp14Visitor(cpp14Visitor):
         llvm_func_type = ir.FunctionType(return_type, parameter_type_list)
         llvm_func = ir.Function(self.irModule, llvm_func_type, name=function_name)
 
-        self.symbolTable.addGlobal(function_name, NameProperty(_type=llvm_func_type, value=llvm_func))
+        self.symbolTable.addGlobal(function_name, NameProperty(type=llvm_func_type, value=llvm_func))
         block = llvm_func.append_basic_block(name="__" + function_name)
         builder = ir.IRBuilder(block)
         self.irBuilder.append(builder)
