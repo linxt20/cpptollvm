@@ -108,8 +108,7 @@ class NewCpp14Visitor(cpp14Visitor):
         string_literal = {
                             'type': string_type,
                             'value': string_address
-                        }     
-
+                        }
         return string_literal
 
     # Visit a parse tree produced by cpp14Parser#constExpression.
@@ -119,7 +118,6 @@ class NewCpp14Visitor(cpp14Visitor):
     # Visit a parse tree produced by cpp14Parser#leftExpression.
     def visitLeftExpression(self, ctx: cpp14Parser.LeftExpressionContext):
         if ctx.getText()[-1] == ']':
-            
             '''
             对应语法: leftExpression:Identifier (LSQUARE expression RSQUARE)
             '''
@@ -167,7 +165,6 @@ class NewCpp14Visitor(cpp14Visitor):
                 '''
                 对应语法: expression: Identifier
                 '''
-                
                 symbol = self.symbolTable.getProperty(ctx.getText())
                 # 读地址再 load 进来
                 if isinstance(symbol.get_type(), ir.ArrayType):
@@ -345,7 +342,7 @@ class NewCpp14Visitor(cpp14Visitor):
                 '''
                 print(left, " is an variable")
 
-                right = self.assignTypeConvert(left, right)  # 强制类型转换
+                right = assign_type_convert(left, right, self.irBuilder[-1])  # 强制类型转换
                 builder.store(right['value'], left['address'])
                 expression = {'type': right['type'], 'value': builder.load(left['address'])}
                 return expression
@@ -495,7 +492,6 @@ class NewCpp14Visitor(cpp14Visitor):
         """
         caseStatement : CASE constExpression COLON statement;
         """
-        # return self.visitChildren(ctx)
         self.symbolTable.enterScope()
         judge_block = self.switch_case_label[-1][0]
         statement_block = self.switch_case_label[-1][1]
@@ -584,7 +580,7 @@ class NewCpp14Visitor(cpp14Visitor):
         # while_statement_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(while_statement_block))
-        print("this blocktobreak", self.blockToBreak[-1])
+        #print("this block to break", self.blockToBreak[-1])
         self.visit(ctx.getChild(4))
         if not self.irBuilder[-1].block.is_terminated:
             self.irBuilder[-1].branch(expression_block)
@@ -635,6 +631,7 @@ class NewCpp14Visitor(cpp14Visitor):
         flag1 = True
         flag2 = True
         flag3 = True
+        expression_index = None
 
         if ctx.getChild(2).getText() == ';':
             flag1 = False

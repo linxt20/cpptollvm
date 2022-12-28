@@ -3,7 +3,7 @@ import llvmlite.ir as ir
 
 
 def is_int(llvm_num):
-    if llvm_num['type'] == ir.IntType(64) or llvm_num['type'] == ir.IntType(32) or llvm_num['type'] == ir.IntType(16)\
+    if llvm_num['type'] == ir.IntType(64) or llvm_num['type'] == ir.IntType(32) or llvm_num['type'] == ir.IntType(16) \
             or llvm_num['type'] == ir.IntType(8) or llvm_num['type'] == ir.IntType(1):
         return True
     return False
@@ -71,6 +71,22 @@ def to_bool(llvm_num, builder):
         'value': return_value
     }
     return expression
+
+
+def assign_type_convert(left, right, builder):
+    # 赋值语句中用的类型转换
+    # 强制把右侧的类型转换为左侧的类型
+    # 右侧的读进来，
+    if left['type'] != right['type']:
+        if is_int(left) and is_int(right):
+            right = int_convert(right, left, builder)
+        elif is_int(left) and is_int(right) == False:
+            right = double_to_int(right, left, builder)
+        elif is_int(left) == False and is_int(right):
+            right = int_to_double(right, builder)
+        else:
+            pass
+    return right
 
 
 def expr_type_convert(left, right, builder):
