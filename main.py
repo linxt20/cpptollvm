@@ -8,6 +8,18 @@ from src.cpp14Parser import cpp14Parser
 from src.cpp14ParserListener import cpp14ParserListener as cpp14Listener
 from src.cpp14ParserVisitor import cpp14ParserVisitor as cpp14Visitor
 
+import llvmlite.ir as ir
+
+
+class NewCpp14Visitor(cpp14Visitor):
+    def __init__(self):
+        super(cpp14Visitor, self).__init__()
+
+        self.irModule = ir.Module()
+        self.irBuilder = []
+        self.irModule.triple = "x86_64-pc-linux"
+
+
 jsonString = ""
 # global lasttype
 def translate(text:str):
