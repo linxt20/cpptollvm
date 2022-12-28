@@ -397,7 +397,7 @@ class NewCpp14Visitor(cpp14Visitor):
                 expression_value = self.visit(expression) 
                 param_list.append(expression_value['value'])
             # 检查合法性
-            # print("param_list & argsList: ", param_list,property.get_type().args)
+
             if property.get_type().var_arg:
                 # 只和vararg之前的比较
                 valid_param_list = param_list[:len(property.get_type().args)]
@@ -424,7 +424,7 @@ class NewCpp14Visitor(cpp14Visitor):
         '''
         ifStatement : IF LPAREN expression RPAREN statement (ELSE statement)?;
         '''
-        # print(f"visitIfStatement:{ctx.getText()}, {ctx.getChildCount()}")
+
         self.symbolTable.enterScope()
         builder = self.irBuilder[-1]
         trueblock = builder.append_basic_block()
@@ -539,7 +539,7 @@ class NewCpp14Visitor(cpp14Visitor):
             builder = self.irBuilder[-1]
             address = builder.alloca(self.type, name=ctx.Identifier().getText())
             builder.store(self.visit(ctx.expression())['value'], address)
-            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(type=self.type, value=address))
+            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(_type=self.type, value=address))
             return
 
         raise BaseException("Incorrect initialization of global variables")
@@ -571,7 +571,7 @@ class NewCpp14Visitor(cpp14Visitor):
             self.visit(ctx.typeSpecifier()), parameter_type_list, var_arg="varargs" in parameter_type_list
         )
         llvm_func = ir.Function(self.irModule, llvm_func_type, name=function_name)
-        self.symbolTable.addGlobal(function_name, NameProperty(type=llvm_func_type, value=llvm_func))
+        self.symbolTable.addGlobal(function_name, NameProperty(_type=llvm_func_type, value=llvm_func))
 
     # Visit a parse tree produced by cpp14Parser#functionDef.
     def visitFunctionDef(self, ctx: cpp14Parser.FunctionDefContext):
@@ -589,7 +589,7 @@ class NewCpp14Visitor(cpp14Visitor):
         llvm_func_type = ir.FunctionType(return_type, parameter_type_list)
         llvm_func = ir.Function(self.irModule, llvm_func_type, name=function_name)
 
-        self.symbolTable.addGlobal(function_name, NameProperty(type=llvm_func_type, value=llvm_func))
+        self.symbolTable.addGlobal(function_name, NameProperty(_type=llvm_func_type, value=llvm_func))
         block = llvm_func.append_basic_block(name="__" + function_name)
         builder = ir.IRBuilder(block)
         self.irBuilder.append(builder)
