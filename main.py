@@ -278,11 +278,11 @@ class NewCpp14Visitor(cpp14Visitor):
 
             left = self.visit(ctx.getChild(0))
             right = self.visit(ctx.getChild(2))
-            if self.isExprJudge(operation):
+            if is_expr_judge(operation):
                 '''
                 对应语法:  expression: expression '==' | '!=' | '<' | '<=' | '>' | '>=' expr
                 '''
-                left, right = exprTypeConvert(left, right, self.irBuilder[-1])
+                left, right = expr_type_convert(left, right, self.irBuilder[-1])
                 if left['type'] == double:
                     return_value = builder.fcmp_ordered(operation, left['value'], right['value'])
                 else:
@@ -302,7 +302,7 @@ class NewCpp14Visitor(cpp14Visitor):
                 '''
                 对应语法: expression: expression '+'|'-'|'*'|'/'|'%' expression
                 '''
-                left, right = exprTypeConvert(left, right, self.irBuilder[-1])
+                left, right = expr_type_convert(left, right, self.irBuilder[-1])
                 if operation == '+':
                     if left['type'] == double:
                         return_value = builder.fadd(left['value'], right['value'])
@@ -354,7 +354,7 @@ class NewCpp14Visitor(cpp14Visitor):
                 '''
                 对应语法:  expression: expression BITOR|BITAND|XOR expression
                 '''
-                left, right = exprTypeConvert(left, right, self.irBuilder[-1])
+                left, right = expr_type_convert(left, right, self.irBuilder[-1])
                 signed = False
                 if left['signed'] or right['signed']:
                     signed = True
@@ -371,8 +371,8 @@ class NewCpp14Visitor(cpp14Visitor):
                 '''
                 对应语法: expression AND|OR expression
                 '''
-                left = toBool(left, self.irBuilder[-1])
-                right = toBool(right, self.irBuilder[-1])
+                left = to_bool(left, self.irBuilder[-1])
+                right = to_bool(right, self.irBuilder[-1])
                 if operation == '&&':
                     return_value = builder.and_(left['value'], right['value'])
                 else:
@@ -441,7 +441,7 @@ class NewCpp14Visitor(cpp14Visitor):
             
             # 条件跳转
             result = self.visit(ctx.getChild(2))
-            condition = toBool(result, self.irBuilder[-1])
+            condition = to_bool(result, self.irBuilder[-1])
             builder.cbranch(condition['value'], true_block, false_block)
             
             # if块
@@ -471,7 +471,7 @@ class NewCpp14Visitor(cpp14Visitor):
             
             # 条件跳转
             result = self.visit(ctx.getChild(2))
-            condition = toBool(result, self.irBuilder[-1])
+            condition = to_bool(result, self.irBuilder[-1])
             builder.cbranch(condition['value'], true_block, end_block)
             
             # if块
@@ -507,7 +507,7 @@ class NewCpp14Visitor(cpp14Visitor):
         left = self.switch_expression[-1]
         right = self.visit(ctx.getChild(1))
 
-        left, right = exprTypeConvert(left, right, self.irBuilder[-1])
+        left, right = expr_type_convert(left, right, self.irBuilder[-1])
         operation = '=='
         if left['type'] == double:
             return_value = judge_builder.fcmp_ordered(operation, left['value'], right['value'])
@@ -578,7 +578,7 @@ class NewCpp14Visitor(cpp14Visitor):
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(expression_block))
         result = self.visit(ctx.getChild(2))
-        condition = toBool(result, self.irBuilder[-1])
+        condition = to_bool(result, self.irBuilder[-1])
         self.irBuilder[-1].cbranch(condition['value'], while_statement_block, end_while_block)
 
         # while_statement_block
@@ -618,7 +618,7 @@ class NewCpp14Visitor(cpp14Visitor):
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(expression_block))
         result = self.visit(ctx.getChild(4))
-        condition = toBool(result, self.irBuilder[-1])
+        condition = to_bool(result, self.irBuilder[-1])
         self.irBuilder[-1].cbranch(condition['value'], do_statement_block, end_while_block)
 
         # end_while_block
@@ -667,7 +667,7 @@ class NewCpp14Visitor(cpp14Visitor):
             self.irBuilder.pop()
             self.irBuilder.append(ir.IRBuilder(judge_block))
             result = self.visit(ctx.getChild(expression_index))
-            condition = toBool(result, self.irBuilder[-1])
+            condition = to_bool(result, self.irBuilder[-1])
             self.irBuilder[-1].cbranch(condition['value'], loop_block, end_loop_block)
 
         # loop_block
