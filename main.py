@@ -152,13 +152,13 @@ class NewCpp14Visitor(cpp14Visitor):
     # Visit a parse tree produced by cpp14Parser#varDeclWithInit.
     def visitVarDeclWithInit(self, ctx: cpp14Parser.VarDeclWithInitContext):
         if self.symbolTable.current_scope_level != 0:
-            builder = self.Builders[-1]
-            new_var_address = builder.alloca(self.type, name=ctx.Identifier().getText())
-            builder.store(self.visit(ctx.expression())['value'], new_var_address)
-            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(type=self.type, value=new_var_address))
+            builder = self.irBuilder[-1]
+            address = builder.alloca(self.type, name=ctx.Identifier().getText())
+            builder.store(self.visit(ctx.expression())['value'], address)
+            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(type=self.type, value=address))
             return
 
-        raise Exception("Incorrect initialization of global variables")
+        raise BaseException("Incorrect initialization of global variables")
 
     # Visit a parse tree produced by cpp14Parser#variableDeclarator.
     def visitVariableDeclarator(self, ctx: cpp14Parser.VariableDeclaratorContext):
@@ -186,7 +186,7 @@ class NewCpp14Visitor(cpp14Visitor):
         llvm_func_type = ir.FunctionType(
             self.visit(ctx.typeSpecifier()), parameter_type_list, var_arg="varargs" in parameter_type_list
         )
-        llvm_func = ir.Function(self.Module, llvm_func_type, name=function_name)
+        llvm_func = ir.Function(self.irModule, llvm_func_type, name=function_name)
         self.symbolTable.addGlobal(function_name, NameProperty(type=llvm_func_type, value=llvm_func))
 
     # Visit a parse tree produced by cpp14Parser#functionDef.
@@ -198,17 +198,17 @@ class NewCpp14Visitor(cpp14Visitor):
 
         parameter_type_list = list(param['type'] for param in parameter_list)
         if "varargs" in parameter_type_list:
-            raise BaseException("varargs not allowed in function definition")
+            raise BaseException("invalid varargs in function definition")
 
         function_name = ctx.getChild(1).getText()
 
         llvm_func_type = ir.FunctionType(return_type, parameter_type_list)
-        llvm_func = ir.Function(self.Module, llvm_func_type, name=function_name)
+        llvm_func = ir.Function(self.irModule, llvm_func_type, name=function_name)
 
         self.symbolTable.addGlobal(function_name, NameProperty(type=llvm_func_type, value=llvm_func))
         block = llvm_func.append_basic_block(name="__" + function_name)
         builder = ir.IRBuilder(block)
-        self.Builders.append(builder)
+        self.irBuilder.append(builder)
         self.symbolTable.enterScope()
 
         for args_value, param in zip(llvm_func.args, parameter_list):
@@ -216,8 +216,9 @@ class NewCpp14Visitor(cpp14Visitor):
             builder.store(args_value, address)
             self.symbolTable.addLocal(param['name'], NameProperty(param['type'], address))
 
-        if not self.Builders[-1].block.is_terminated:
-            self.Builders[-1].ret_void()
+        builder = self.irBuilder[-1]
+        if not builder.block.is_terminated:
+            builder.ret_void()
         self.symbolTable.exitScope()
 
         return {'type': return_type, 'signed': True, 'value': self.visit(ctx.block())}
