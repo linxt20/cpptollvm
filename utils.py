@@ -105,27 +105,3 @@ def expr_type_convert(left, right, builder):
         right = int_to_double(right, builder)
     return left, right
 
-
-def get_type_from_text(name: str):
-    if name == "int":
-        return ir.IntType(32)
-    elif name == "int16":
-        return ir.IntType(32)
-
-
-def is_expr_judge(operation):
-    # 没有处理 NOT_EQ 中"not_equ"的情况
-    if operation == ">":
-        return True
-    elif operation == "<":
-        return True
-    elif operation == ">=":
-        return True
-    elif operation == "<=":
-        return True
-    elif operation == "==":
-        return True
-    elif operation == "!=":
-        return True
-    else:
-        return False
