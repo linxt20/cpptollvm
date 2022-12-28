@@ -238,7 +238,7 @@ class NewCpp14Visitor(cpp14Visitor):
             left = self.visit(child0)
             right = self.visit(ctx.getChild(2))
             if(operation in ['>','<','>=','<=','==','!=']):
-                left,right = self.exprTypeConvert(left,right)
+                left,right = expr_type_convert(left,right,self.irBuilder[-1])
                 if(left['type']==double):
                     return_value = builder.fcmp_ordered(operation,left['value'],right['value'])
                 elif(left['type']==int32 or left['type'] == int64 or left['type'] == int8 or left['type']==int1):
@@ -255,7 +255,7 @@ class NewCpp14Visitor(cpp14Visitor):
 
             elif(operation in ['+','-','*','/','%','<<','>>']):
 
-                left,right = self.exprTypeConvert(left,right)
+                left,right = expr_type_convert(left,right,self.irBuilder[-1])
                 if(operation == '+'):
                     if(left['type']==double):
                         return_value = builder.fadd(left['value'],right['value'])
@@ -309,8 +309,7 @@ class NewCpp14Visitor(cpp14Visitor):
             elif(operation == '='):
 
                 child_count=child0.getChildCount()
-
-                right = self.assignTypeConvert(left,right) # 在这里需要强制类型转换
+                right = assign_type_convert(left,right,self.irBuilder[-1]) # 在这里需要强制类型转换
                 builder.store(right['value'],left['address'])
                 expression = {
                                 'type':right['type'],   
@@ -319,7 +318,7 @@ class NewCpp14Visitor(cpp14Visitor):
 
             elif(operation in ['|','&','^']):
 
-                left,right = self.exprTypeConvert(left,right)
+                left,right = expr_type_convert(left,right,self.irBuilder[-1])
                 Signed = False
                 if left['signed'] or right['signed']:
                     Signed = True
@@ -336,11 +335,9 @@ class NewCpp14Visitor(cpp14Visitor):
                             }
             
             elif(operation in ['&&' ,'||' ] ):
-                '''
-                对应语法: expression AND|OR expression
-                '''
-                left = self.toBool(left)
-                right = self.toBool(right)
+
+                left = to_bool(left,self.irBuilder[-1])
+                right = to_bool(right,self.irBuilder[-1])
                 if(operation == '&&'):
                     return_value = builder.and_(left['value'],right['value'])
                 elif(operation == '||' ):
@@ -434,100 +431,6 @@ class NewCpp14Visitor(cpp14Visitor):
         self.visit(child)
         if(not self.irBuilder[-1].block.is_terminated):
             self.irBuilder[-1].branch(endblock)
-
-    def intConvert(self,src,target):
-        builder = self.irBuilder[-1] 
-        if(target['type'].width < src['type'].width):
-            return_value = builder.trunc(src['value'],target['type'])
-        else:
-            if(src['type'].width != 1 and src['signed']):
-                return_value = builder.sext(src['value'],target['type'])
-                
-            else:
-                return_value = builder.zext(src['value'],target['type'])
-        
-        temp = {
-                'type':target['type'],
-                'signed':src['signed'],
-                'value':return_value
-        }
-        return temp
-            
-    def intToDouble(self,llvmNum):
-        builder = self.irBuilder[-1]
-        if(llvmNum['signed']):
-            return_value = builder.sitofp(llvmNum['value'],double)
-        else:
-            return_value = builder.uitofp(llvmNum['value'],double)
-
-        temp = {
-            'type':double,
-            'value':return_value
-        }
-        return temp
-
-    
-    def doubleToInt(self,llvmNum,target):
-        builder = self.irBuilder[-1]
-        if(llvmNum['signed']):
-            return_value = builder.fptosi(llvmNum['value'],target['type'])
-        else:
-            return_value = builder.fptoui(llvmNum['value'],target['type'])
-        temp = {
-            'type':target['type'],
-            'value':return_value
-        }
-        return temp
-    
-
-    def toBool(self,llvmNum):
-        builder = self.irBuilder[-1]
-        if llvmNum['type'] == double:
-            return_value = builder.fcmp_ordered('!=', llvmNum['value'], ir.Constant(int1,0))
-        else:
-            return_value = builder.icmp_signed('!=', llvmNum['value'], ir.Constant(int1,0))
-        temp = {
-            'type':int1,
-            'signed':True,
-            'value':return_value
-        }
-        return temp
-
-    def assignTypeConvert(self,left,right):
-        isint_left = False
-        isint_right = False
-
-        if left['type'] ==int32 or left['type']== int64 or left['type'] == int16 or left['type'] == int8 or left['type'] == int1:
-            isint_left = True
-        if right['type']==int32 or right['type']== int64 or right['type'] == int16 or right['type'] == int8 or right['type'] == int1:
-            isint_right = True
-
-        if(left['type'] != right['type']):
-            if(isint_left and isint_right):
-                right = self.intConvert(right,left)
-            elif(isint_left and isint_right==False):
-                right = self.doubleToInt(right,left)
-            elif(isint_left==False and isint_right):
-                right = self.intToDouble(right)
-            else:
-                pass
-        return right
-    
-    def exprTypeConvert(self,left,right):
-        left_isint = self.isInt(left)
-        right_isint = self.isInt(right)
-        if(left['type']==right['type']):
-            return left,right
-        elif left_isint and right_isint:
-            if left['type'].width < right['type'].width:
-                left = self.intConvert(left,right)
-            else:
-                right = self.intConvert(right,left)
-        elif left_isint and right['type']==double: 
-            left = self.intToDouble(left)
-        elif left['type']==double and right_isint:
-            right = self.intToDouble(right)
-        return left,right
 
 ####################################################################################
 
