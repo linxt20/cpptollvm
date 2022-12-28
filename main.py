@@ -173,7 +173,11 @@ class NewCpp14Visitor(cpp14Visitor):
                 if isinstance(symbol.get_type(), ir.ArrayType):
                     expression = {
                                     'type': symbol.get_type().element.as_pointer(),
-                                    'value': builder.gep(symbol.get_value(), [ir.Constant(int32, 0), ir.Constant(int32, 0)], inbounds=True)
+                                    'value': builder.gep(
+                                        symbol.get_value(),
+                                        [ir.Constant(int32, 0), ir.Constant(int32, 0)],
+                                        inbounds=True
+                                    )
                                 }
                     return expression
                 else:
@@ -293,7 +297,8 @@ class NewCpp14Visitor(cpp14Visitor):
                             }          
                 return expression
 
-            elif operation == '+' or operation == '-' or operation == '*' or operation == '/' or operation == '%' or operation == '<<' or operation == '>>':
+            elif operation == '+' or operation == '-' or operation == '*' or operation == '/' or operation == '%' or \
+                    operation == '<<' or operation == '>>':
                 '''
                 对应语法: expression: expression '+'|'-'|'*'|'/'|'%' expression
                 '''
@@ -431,13 +436,13 @@ class NewCpp14Visitor(cpp14Visitor):
 
         # if else的情况
         if len(ctx.statement()) == 2:
-            falseblock = builder.append_basic_block()
+            false_block = builder.append_basic_block()
             end_block = builder.append_basic_block()
             
             # 条件跳转
             result = self.visit(ctx.getChild(2))
-            condition = self.toBool(result)
-            builder.cbranch(condition['value'], true_block, falseblock)
+            condition = toBool(result, self.irBuilder[-1])
+            builder.cbranch(condition['value'], true_block, false_block)
             
             # if块
             true_block_builder = ir.IRBuilder(true_block)
@@ -448,9 +453,9 @@ class NewCpp14Visitor(cpp14Visitor):
                 self.irBuilder[-1].branch(end_block)
             
             # else块
-            falseblockbuilder = ir.IRBuilder(falseblock)
+            false_block_builder = ir.IRBuilder(false_block)
             self.irBuilder.pop()
-            self.irBuilder.append(falseblockbuilder)
+            self.irBuilder.append(false_block_builder)
             self.visit(ctx.getChild(6))
             # self.Builders[-1].branch(end_block)
             if not self.irBuilder[-1].block.is_terminated:
@@ -524,7 +529,6 @@ class NewCpp14Visitor(cpp14Visitor):
 
         self.switch_case_label[-1].pop(0)
         self.switch_case_label[-1].pop(0)
-        return
 
     # Visit a parse tree produced by cpp14Parser#switchStatement.
     def visitSwitchStatement(self, ctx: cpp14Parser.SwitchStatementContext):
@@ -541,7 +545,6 @@ class NewCpp14Visitor(cpp14Visitor):
             temp_array.append(builder.append_basic_block())
         self.switch_case_label.append(temp_array)
         self.blockToBreak.append(temp_array[-1])
-        end_switch = temp_array[-1]
 
         builder.branch(temp_array[0])
 
@@ -558,7 +561,6 @@ class NewCpp14Visitor(cpp14Visitor):
         self.blockToBreak.pop()
 
         self.symbolTable.exitScope()
-        return
 
     # Visit a parse tree produced by cpp14Parser#whileStatement.
     def visitWhileStatement(self, ctx: cpp14Parser.WhileStatementContext):
@@ -593,7 +595,6 @@ class NewCpp14Visitor(cpp14Visitor):
 
         self.blockToContinue.pop()
         self.blockToBreak.pop()
-        return
 
     # Visit a parse tree produced by cpp14Parser#doWhileStatement.
     def visitDoWhileStatement(self, ctx: cpp14Parser.DoWhileStatementContext):
@@ -625,7 +626,6 @@ class NewCpp14Visitor(cpp14Visitor):
         self.irBuilder.append(ir.IRBuilder(end_while_block))
         self.blockToContinue.pop()
         self.blockToBreak.pop()
-        return
 
     # Visit a parse tree produced by cpp14Parser#forStatement.
     def visitForStatement(self, ctx: cpp14Parser.ForStatementContext):
@@ -692,7 +692,6 @@ class NewCpp14Visitor(cpp14Visitor):
         self.irBuilder.append(ir.IRBuilder(end_loop_block))
         self.blockToBreak.pop()
         self.blockToContinue.pop()
-        return
 
     # Visit a parse tree produced by cpp14Parser#returnStatement.
     def visitReturnStatement(self, ctx: cpp14Parser.ReturnStatementContext):
@@ -700,7 +699,6 @@ class NewCpp14Visitor(cpp14Visitor):
             self.irBuilder[-1].ret_void()
         else:
             self.irBuilder[-1].ret(self.visit(ctx.expression())['value'])
-        return
 
     # Visit a parse tree produced by cpp14Parser#breakStatement.
     def visitBreakStatement(self, ctx: cpp14Parser.BreakStatementContext):
@@ -713,10 +711,9 @@ class NewCpp14Visitor(cpp14Visitor):
             builder.branch(self.blockToContinue[-1])
         else:
             raise BaseException("cannot continue")
-        return
 
     # Visit a parse tree produced by cpp14Parser#normalArrDecl.
-    def visitNormalArrDecl(self, ctx:cpp14Parser.NormalArrDeclContext):
+    def visitNormalArrDecl(self, ctx: cpp14Parser.NormalArrDeclContext):
         array_length = int(ctx.getChild(3).getText())
         # 数据类型
         array_type = self.visit(ctx.getChild(0))
@@ -778,7 +775,6 @@ class NewCpp14Visitor(cpp14Visitor):
 
         symbol_property = NameProperty(llvm_array_type, new_var)
         self.symbolTable.addLocal(array_name, symbol_property)
-        return
 
     # Visit a parse tree produced by cpp14Parser#varDeclWithoutInit.
     def visitVarDeclWithoutInit(self, ctx: cpp14Parser.VarDeclWithoutInitContext):
@@ -797,7 +793,6 @@ class NewCpp14Visitor(cpp14Visitor):
             builder.store(ir.Constant(self.type, None), new_var)
             # 存到符号表里面
             self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(_type=self.type, value=new_var))
-        return
 
     # Visit a parse tree produced by cpp14Parser#varDeclWithConstInit.
     def visitVarDeclWithConstInit(self, ctx: cpp14Parser.VarDeclWithConstInitContext):
