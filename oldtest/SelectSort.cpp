@@ -8,7 +8,7 @@ int main(){
 	for(i = 0; i < n; i++){
 		scanf("%d", m[i]);
 	}
-	for(i = 0; i < n; i++){
+	for(i = 0; i < n-1; i++){
 		min = m[i];
 		index = i;
 		for(j = i + 1; j < n; j++){
