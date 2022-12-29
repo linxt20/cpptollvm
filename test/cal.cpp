@@ -11,7 +11,7 @@ int Polish(){
     int index_1=0;
     int len;
     for(len=0;strs[len]!=0;len=len+1);
-    int t=0; // 这个原来是 t=1;
+    int t=0;
     int i=0;
     while(i<len){
         if(strs[i]==91){
