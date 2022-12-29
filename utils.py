@@ -7,7 +7,7 @@ def is_int(llvm_num):
 
 
 def int_convert(src, target, builder):
-    if target['type'].width >= src['type'].width:  # 往大扩展
+    if target['type'].width >= src['type'].width:
         if src['type'].width == 1:
             return_value = builder.zext(src['value'], target['type'])
             return {
@@ -71,10 +71,9 @@ def to_bool(llvm_num, builder):
 
 
 def assign_type_convert(left, right, builder):
-    # 赋值语句中用的类型转换
-    # 强制把右侧的类型转换为左侧的类型
-    # 右侧的读进来，
-    if left['type'] != right['type']:
+    if left['type'] == right['type']:
+        pass
+    else:
         if is_int(left) and is_int(right):
             right = int_convert(right, left, builder)
         elif is_int(left) and is_int(right) is False:
@@ -87,17 +86,18 @@ def assign_type_convert(left, right, builder):
 
 
 def expr_type_convert(left, right, builder):
-    # left和right的符号类型不一致时，类型转换为一致，向大的类型转换
-    # left,right可能的类型: int1,int8,int16,int32,int64,double...（暂时支持这几种）
     if left['type'] == right['type']:
-        return left, right
-    elif is_int(left) and is_int(right):
-        if left['type'].width < right['type'].width:
-            left = int_convert(left, right, builder)
+        pass
+    else:
+        if is_int(left) and is_int(right):
+            if left['type'].width < right['type'].width:
+                left = int_convert(left, right, builder)
+            else:
+                right = int_convert(right, left, builder)
+        elif is_int(left) and right['type'] == ir.DoubleType():
+            left = int_to_double(left, builder)
+        elif left['type'] == ir.DoubleType() and is_int(right):
+            right = int_to_double(right, builder)
         else:
-            right = int_convert(right, left, builder)
-    elif is_int(left) and right['type'] == ir.DoubleType():
-        left = int_to_double(left, builder)
-    elif left['type'] == ir.DoubleType() and is_int(right):
-        right = int_to_double(right, builder)
+            pass
     return left, right

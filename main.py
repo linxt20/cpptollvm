@@ -443,8 +443,6 @@ class NewCpp14Visitor(cpp14Visitor):
         if not self.irBuilder[-1].block.is_terminated:
             self.irBuilder[-1].branch(end_block)
 
-####################################################################################
-
     # Visit a parse tree produced by cpp14Parser#caseStatement.
     def visitCaseStatement(self, ctx: cpp14Parser.CaseStatementContext):
         self.symbolTable.enterScope()
