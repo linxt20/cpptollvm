@@ -10,12 +10,12 @@ int main(){
 	i--;
 	while(j < i){
 		if(m[j] != m[i]){
-			printf("False");
+			printf("False\n");
 			return 0;
 		}
 		i--;
 		j++;
 	}
-	printf("True");
+	printf("True\n");
 	return 0;
 }
