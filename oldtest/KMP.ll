@@ -2,15 +2,15 @@
 target triple = "x86_64-pc-linux-gnu"
 target datalayout = ""
 
-declare i32 @"printf"(i8* %".1", ...)
+declare i32 @"printf"(i8* %".1", ...) 
 
-declare i32 @"scanf"(i8* %".1", ...)
+declare i32 @"scanf"(i8* %".1", ...) 
 
 @"stringone" = internal global [100 x i8] zeroinitializer
 @"stringanother" = internal global [100 x i8] zeroinitializer
 @"nextone" = internal global [100 x i32] zeroinitializer
 @"len" = internal global i32 0
-define i32 @"KMP"()
+define i32 @"KMP"() 
 {
 __KMP:
   %"i" = alloca i32
@@ -91,16 +91,16 @@ __KMP:
 .44:
   br label %".19"
 .71:
-  %".77" = getelementptr inbounds [6 x i8], [6 x i8]* @"__string_1", i32 0, i32 0
+  %".77" = getelementptr inbounds [7 x i8], [7 x i8]* @"__string_1", i32 0, i32 0
   %".78" = call i32 (i8*, ...) @"printf"(i8* %".77")
   br label %".72"
 .72:
-  ret void
+  ret i32 0
 }
 
 @"__string_0" = internal global [11 x i8] c"place: %d\0a\00"
-@"__string_1" = internal global [6 x i8] c"false\00"
-define i32 @"main"()
+@"__string_1" = internal global [7 x i8] c"false\0a\00"
+define i32 @"main"() 
 {
 __main:
   %"i" = alloca i32
