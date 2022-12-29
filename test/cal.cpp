@@ -10,17 +10,17 @@ int Polish(){
     char s1[100];
     int index_1=0;
     int len;
-    for(len=0;strs[len]!='\0';len=len+1);
+    for(len=0;strs[len]!=0;len=len+1);
     int t=1;
     int i=0;
     while(i<len){
-        if(strs[i]=='['){
+        if(strs[i]==91){
             index_1 = index_1+1;
-            s1[index_1]='[';
+            s1[index_1]=91;
             i=i+1;
         }
-        else if(strs[i]==']'){
-            while(s1[index_1]!='['){
+        else if(strs[i]==93){
+            while(s1[index_1]!=91){
                 final[t]=s1[index_1];
                 t=t+1;
                 index_1=index_1-1;
@@ -28,8 +28,8 @@ int Polish(){
             index_1=index_1-1;
             i=i+1;
         }
-        else if(strs[i]=='+'||strs[i]=='-'){
-            while(index_1!=0&&s1[index_1]!='['){
+        else if(strs[i]==43||strs[i]==45){
+            while(index_1!=0&&s1[index_1]!=91){
                 final[t]=s1[index_1];
                 t=t+1;
                 index_1 = index_1-1;
@@ -38,8 +38,8 @@ int Polish(){
             s1[index_1]=strs[i];
             i=i+1;
         }
-        else if(strs[i]=='*'||strs[i]=='/'){
-            while(s1[index_1]=='*'||s1[index_1]=='/'){
+        else if(strs[i]==42||strs[i]==47){
+            while(s1[index_1]==42||s1[index_1]==47){
                 final[t]=s1[index_1];
                 t=t+1;
                 index_1=index_1-1;
@@ -49,12 +49,12 @@ int Polish(){
             i=i+1;
         }
         else{
-            while(strs[i]<='9'&&strs[i]>='0'){
+            while(strs[i]<=57&&strs[i]>=48){
                 final[t]=strs[i];
                 t=t+1;
                 i=i+1;
             }
-            final[t]=' ';
+            final[t]=32;
             t=t+1;
         }
     }
@@ -72,27 +72,27 @@ int cal(){
     int n_data=0;
     int i;
     for(i=0;i<100;i=i+1){
-        if(final[i]<='9' && final[i]>='0'){
-            n_data=n_data*10+(final[i]-'0');
+        if(final[i]<=57 && final[i]>=48){
+            n_data=n_data*10+(final[i]-48);
         }
-        else if(final[i]==' '){
+        else if(final[i]==32){
             index = index+1;
             stack[index]=n_data;
             n_data=0;
         }
-        else if(final[i]=='+'){
+        else if(final[i]==43){
             stack[index-1]=stack[index-1]+stack[index];
             index=index-1;
         }
-        else if(final[i]=='-'){
+        else if(final[i]==45){
             stack[index-1]=stack[index-1]-stack[index];
             index=index-1;
         }
-        else if(final[i]=='*'){
+        else if(final[i]==42){
             stack[index-1]=stack[index-1]*stack[index];
             index=index-1;
         }
-        else if(final[i]=='/'){
+        else if(final[i]==47){
             if(stack[index]!=0){
                 stack[index-1]=stack[index-1]/stack[index];
             index=index-1;
@@ -108,19 +108,19 @@ int cal(){
 }
 int judge(char c){
     int typejudge = -1;
-    if(c=='+'|| c=='-'||  c=='*'||  c=='/'){
+    if(c==43|| c==45||  c==42||  c==47){
         typejudge = 1;
     }
     else{
-        if(c<='9'&&c>='0'){
+        if(c<=57&&c>=48){
             typejudge = 0;
         }
         else{
-            if(c=='['){
+            if(c==91){
                 typejudge =2;
             }
             else{
-                if(c==']'){
+                if(c==93){
                     typejudge =3;
                 }
             } 
@@ -134,7 +134,7 @@ int main(){
     scanf("%s",stringone);
     // scanf("%s",&strs);
     int len;
-    for(len=0;stringone[len]!='\0';len++);
+    for(len=0;stringone[len]!=0;len++);
     int left=0;
     int pst = -2;
     int i;
