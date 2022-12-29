@@ -54,7 +54,7 @@ __Polish:
   %".39" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".38"
   %".40" = load i8, i8* %".39"
   %".41" = sext i8 %".40" to i32
-  %".42" = icmp eq i32 %".41", 91
+  %".42" = icmp eq i32 %".41", 40
   %".43" = icmp ne i1 %".42", 0
   br i1 %".43", label %".35", label %".36"
 .28:
@@ -66,7 +66,7 @@ __Polish:
   %".48" = load i32, i32* %"index_1"
   %".49" = load i32, i32* %"index_1"
   %".50" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".49"
-  %".51" = trunc i32 91 to i8
+  %".51" = trunc i32 40 to i8
   store i8 %".51", i8* %".50"
   %".53" = load i8, i8* %".50"
   %".54" = load i32, i32* %"i"
@@ -79,7 +79,7 @@ __Polish:
   %".63" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".62"
   %".64" = load i8, i8* %".63"
   %".65" = sext i8 %".64" to i32
-  %".66" = icmp eq i32 %".65", 93
+  %".66" = icmp eq i32 %".65", 41
   %".67" = icmp ne i1 %".66", 0
   br i1 %".67", label %".59", label %".60"
 .37:
@@ -109,7 +109,7 @@ __Polish:
   %".74" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".73"
   %".75" = load i8, i8* %".74"
   %".76" = sext i8 %".75" to i32
-  %".77" = icmp ne i32 %".76", 91
+  %".77" = icmp ne i32 %".76", 40
   %".78" = icmp ne i1 %".77", 0
   br i1 %".78", label %".70", label %".71"
 .70:
@@ -166,7 +166,7 @@ __Polish:
   %".130" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".129"
   %".131" = load i8, i8* %".130"
   %".132" = sext i8 %".131" to i32
-  %".133" = icmp ne i32 %".132", 91
+  %".133" = icmp ne i32 %".132", 40
   %".134" = icmp ne i1 %".128", 0
   %".135" = icmp ne i1 %".133", 0
   %".136" = and i1 %".134", %".135"
@@ -606,7 +606,7 @@ __judge:
 .36:
   %".55" = load i8, i8* %"c"
   %".56" = sext i8 %".55" to i32
-  %".57" = icmp eq i32 %".56", 91
+  %".57" = icmp eq i32 %".56", 40
   %".58" = icmp ne i1 %".57", 0
   br i1 %".58", label %".52", label %".53"
 .37:
@@ -618,7 +618,7 @@ __judge:
 .53:
   %".65" = load i8, i8* %"c"
   %".66" = sext i8 %".65" to i32
-  %".67" = icmp eq i32 %".66", 93
+  %".67" = icmp eq i32 %".66", 41
   %".68" = icmp ne i1 %".67", 0
   br i1 %".68", label %".63", label %".64"
 .54:

@@ -14,13 +14,13 @@ int Polish(){
     int t=0;
     int i=0;
     while(i<len){
-        if(strs[i]==91){
+        if(strs[i]==40){
             index_1 = index_1+1;
-            s1[index_1]=91;
+            s1[index_1]=40;
             i=i+1;
         }
-        else if(strs[i]==93){
-            while(s1[index_1]!=91){
+        else if(strs[i]==41){
+            while(s1[index_1]!=40){
                 final[t]=s1[index_1];
                 t=t+1;
                 index_1=index_1-1;
@@ -29,7 +29,7 @@ int Polish(){
             i=i+1;
         }
         else if(strs[i]==43||strs[i]==45){
-            while(index_1!=0&&s1[index_1]!=91){
+            while(index_1!=0&&s1[index_1]!=40){
                 final[t]=s1[index_1];
                 t=t+1;
                 index_1 = index_1-1;
@@ -116,11 +116,11 @@ int judge(char c){
             typejudge = 0;
         }
         else{
-            if(c==91){
+            if(c==40){
                 typejudge =2;
             }
             else{
-                if(c==93){
+                if(c==41){
                     typejudge =3;
                 }
             } 
