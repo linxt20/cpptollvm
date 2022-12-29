@@ -2,14 +2,11 @@
 target triple = "x86_64-pc-linux-gnu"
 target datalayout = ""
 
-declare i32 @"printf"(i32 %".1", ...) 
+declare i32 @"test"(...) 
 
 define i32 @"main"() 
 {
 __main:
-  %"a" = alloca i32
-  store i32 0, i32* %"a"
-  %".3" = load i32, i32* %"a"
-  %".4" = call i32 (i32, ...) @"printf"(i32 %".3", i32 1, i32 2, i32 3)
+  %".2" = call i32 (...) @"test"(i32 1, i32 2, i32 3)
   ret i32 0
 }

@@ -1,7 +1,6 @@
-int printf(int a, ...);
+int test(...);
 
 int main(){
-    int a = 0;
-    printf(a, 1, 2, 3);
+    test(1, 2, 3);
     return 0;
 }
