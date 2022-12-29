@@ -1,6 +1,7 @@
-int a = 1;
+int a;
 
 int main(){
-    // a = (a = a + 1) + 1;
+    a = 1;
+    a = (a = a + 1) + 1;
     return 0;
 }
