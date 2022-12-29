@@ -2,27 +2,24 @@ int printf(char* a, ...);
 int scanf(char* a, ...);
 
 char final[100];
+char strs[100];
+char stringone[100];
 int judgezero;
 
-int strlen(char* s){
-    int i;
-    for(i=0;s[i]!='\0';i=i+1);
-    return i;
-}
-
-void Polish(char* str){
+void Polish(){
     char s1[100];
     int index_1=0;
-    int len=strlen(str);
+    int len;
+    for(len=0;strs[len]!='\0';len=len+1);
     int t=1;
     int i=0;
     while(i<len){
-        if(str[i]=='['){
+        if(strs[i]=='['){
             index_1 = index_1+1;
             s1[index_1]='[';
             i=i+1;
         }
-        else if(str[i]==']'){
+        else if(strs[i]==']'){
             while(s1[index_1]!='['){
                 final[t]=s1[index_1];
                 t=t+1;
@@ -31,29 +28,29 @@ void Polish(char* str){
             index_1=index_1-1;
             i=i+1;
         }
-        else if(str[i]=='+'||str[i]=='-'){
+        else if(strs[i]=='+'||strs[i]=='-'){
             while(index_1!=0&&s1[index_1]!='['){
                 final[t]=s1[index_1];
                 t=t+1;
                 index_1 = index_1-1;
             }
             index_1=index_1+1;
-            s1[index_1]=str[i];
+            s1[index_1]=strs[i];
             i=i+1;
         }
-        else if(str[i]=='*'||str[i]=='/'){
+        else if(strs[i]=='*'||strs[i]=='/'){
             while(s1[index_1]=='*'||s1[index_1]=='/'){
                 final[t]=s1[index_1];
                 t=t+1;
                 index_1=index_1-1;
             }
             index_1=index_1+1;
-            s1[index_1]=str[i];
+            s1[index_1]=strs[i];
             i=i+1;
         }
         else{
-            while(str[i]<='9'&&str[i]>='0'){
-                final[t]=str[i];
+            while(strs[i]<='9'&&strs[i]>='0'){
+                final[t]=strs[i];
                 t=t+1;
                 i=i+1;
             }
@@ -68,33 +65,33 @@ void Polish(char* str){
     }
 }
 
-int cal(char* po){
+int cal(){
     int stack[100];
     int index=-1;
     int n_data=0;
     int i;
     for(i=0;i<100;i=i+1){
-        if(po[i]<='9' && po[i]>='0'){
-            n_data=n_data*10+(po[i]-'0');
+        if(final[i]<='9' && final[i]>='0'){
+            n_data=n_data*10+(final[i]-'0');
         }
-        else if(po[i]==' '){
+        else if(final[i]==' '){
             index = index+1;
             stack[index]=n_data;
             n_data=0;
         }
-        else if(po[i]=='+'){
+        else if(final[i]=='+'){
             stack[index-1]=stack[index-1]+stack[index];
             index=index-1;
         }
-        else if(po[i]=='-'){
+        else if(final[i]=='-'){
             stack[index-1]=stack[index-1]-stack[index];
             index=index-1;
         }
-        else if(po[i]=='*'){
+        else if(final[i]=='*'){
             stack[index-1]=stack[index-1]*stack[index];
             index=index-1;
         }
-        else if(po[i]=='/'){
+        else if(final[i]=='/'){
             if(stack[index]!=0){
                 stack[index-1]=stack[index-1]/stack[index];
             index=index-1;
@@ -126,11 +123,10 @@ int judge(char c){
 
 int main(){
     judgezero = 0;
-    char strs[100];
-    char stringone[100];
     scanf("%s",stringone);
     // scanf("%s",&strs);
-    int len=strlen(stringone);
+    int len;
+    for(len=0;stringone[len]!='\0';len++);
     int left=0;
     int pst = -2;
     int i;
@@ -189,9 +185,9 @@ int main(){
         return 0;
     }
 
-    Polish(strs);
+    Polish();
 
-    int num=cal(final);
+    int num=cal();
     if(judgezero==1){
         return 0;
     }
