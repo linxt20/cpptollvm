@@ -2,11 +2,11 @@
 target triple = "x86_64-pc-linux-gnu"
 target datalayout = ""
 
-declare i32 @"printf"(i8* %".1", ...)
+declare i32 @"printf"(i8* %".1", ...) 
 
-declare i32 @"scanf"(i8* %".1", ...)
+declare i32 @"scanf"(i8* %".1", ...) 
 
-define i32 @"main"()
+define i32 @"main"() 
 {
 __main:
   %"i" = alloca i32
@@ -50,11 +50,11 @@ __main:
   %".40" = icmp ne i1 %".39", 0
   br i1 %".40", label %".31", label %".32"
 .24:
-  %".52" = getelementptr inbounds [5 x i8], [5 x i8]* @"__string_2", i32 0, i32 0
+  %".52" = getelementptr inbounds [6 x i8], [6 x i8]* @"__string_2", i32 0, i32 0
   %".53" = call i32 (i8*, ...) @"printf"(i8* %".52")
   ret i32 0
 .31:
-  %".42" = getelementptr inbounds [6 x i8], [6 x i8]* @"__string_1", i32 0, i32 0
+  %".42" = getelementptr inbounds [7 x i8], [7 x i8]* @"__string_1", i32 0, i32 0
   %".43" = call i32 (i8*, ...) @"printf"(i8* %".42")
   ret i32 0
 .32:
@@ -68,5 +68,5 @@ __main:
 }
 
 @"__string_0" = internal global [3 x i8] c"%s\00"
-@"__string_1" = internal global [6 x i8] c"False\00"
-@"__string_2" = internal global [5 x i8] c"True\00"
+@"__string_1" = internal global [7 x i8] c"False\0a\00"
+@"__string_2" = internal global [6 x i8] c"True\0a\00"
