@@ -39,8 +39,8 @@ class NewCpp14Visitor(cpp14Visitor):
         self.switch_case_label = []  # 用于存储switch表达式中label的值
 
         # break,continue语句跳转到的block
-        self.blockToBreak = []
-        self.blockToContinue = []
+        self.block_to_break = []
+        self.block_to_continue = []
 
         self.string_count = 0  # 全局字符串的数量
 
@@ -403,7 +403,6 @@ class NewCpp14Visitor(cpp14Visitor):
             return function_call
         else:    
             raise BaseException("not a function name")
-            
 
     # Visit a parse tree produced by cpp14Parser#ifStatement.
     def visitIfStatement(self, ctx: cpp14Parser.IfStatementContext):
@@ -445,155 +444,130 @@ class NewCpp14Visitor(cpp14Visitor):
         if not self.irBuilder[-1].block.is_terminated:
             self.irBuilder[-1].branch(end_block)
 
-####################################################################################
-
     # Visit a parse tree produced by cpp14Parser#caseStatement.
     def visitCaseStatement(self, ctx: cpp14Parser.CaseStatementContext):
-        """
-        caseStatement : CASE constExpression COLON statement;
-        """
         self.symbolTable.enterScope()
         judge_block = self.switch_case_label[-1][0]
+        judge_builder = ir.IRBuilder(judge_block)
+
         statement_block = self.switch_case_label[-1][1]
         target_judge_block = self.switch_case_label[-1][2]
         target_statement_block = self.switch_case_label[-1][3]
 
-        judge_builder = ir.IRBuilder(judge_block)
-
         left = self.switch_expression[-1]
         right = self.visit(ctx.getChild(1))
-
         left, right = expr_type_convert(left, right, self.irBuilder[-1])
 
-        if left['type'] == double:
-            return_value = judge_builder.fcmp_ordered('==', left['value'], right['value'])
+        if (left['type'] != double) and left['signed']:
+            return_value = judge_builder.icmp_signed('==', left['value'], right['value'])
+        elif (left['type'] != double) and not (left['signed']):
+            return_value = judge_builder.icmp_unsigned('==', left['value'], right['value'])
         else:
-            if left['signed']:
-                return_value = judge_builder.icmp_signed('==', left['value'], right['value'])
-            else:
-                return_value = judge_builder.icmp_unsigned('==', left['value'], right['value'])
-
+            return_value = judge_builder.fcmp_ordered('==', left['value'], right['value'])
         judge_builder.cbranch(return_value, statement_block, target_judge_block)
 
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(statement_block))
         self.visit(ctx.getChild(3))
+
         if not self.irBuilder[-1].block.is_terminated:
             self.irBuilder[-1].branch(target_statement_block)
 
         self.symbolTable.exitScope()
-
-        self.switch_case_label[-1].pop(0)
-        self.switch_case_label[-1].pop(0)
+        self.switch_case_label[-1].pop()
+        self.switch_case_label[-1].pop()
 
     # Visit a parse tree produced by cpp14Parser#switchStatement.
     def visitSwitchStatement(self, ctx: cpp14Parser.SwitchStatementContext):
         # return self.visitChildren(ctx)
         self.symbolTable.enterScope()
-        case_num = ctx.getChildCount() - 6
         builder = self.irBuilder[-1]
+        case_num = ctx.getChildCount() - 6
 
-        result = self.visit(ctx.getChild(2))
-        self.switch_expression.append(result)
-
+        self.switch_expression.append(self.visit(ctx.getChild(2)))
         temp_array = []
         for i in range(case_num * 2 + 2):
             temp_array.append(builder.append_basic_block())
         self.switch_case_label.append(temp_array)
-        self.blockToBreak.append(temp_array[-1])
+        self.block_to_break.append(temp_array[-1])
 
         builder.branch(temp_array[0])
-
         for i in range(case_num):
             self.visit(ctx.getChild(i + 5))
 
-        assert len(self.switch_case_label[-1]) == 2
+        # assert len(self.switch_case_label[-1]) == 2
         ir.IRBuilder(self.switch_case_label[-1][0]).branch(self.switch_case_label[-1][1])
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(self.switch_case_label[-1][1]))
 
-        self.switch_expression.pop()
-        self.switch_case_label.pop()
-        self.blockToBreak.pop()
-
         self.symbolTable.exitScope()
+        self.block_to_break.pop()
+        self.switch_case_label.pop()
+        self.switch_expression.pop()
 
     # Visit a parse tree produced by cpp14Parser#whileStatement.
     def visitWhileStatement(self, ctx: cpp14Parser.WhileStatementContext):
         builder = self.irBuilder[-1]
-        # 新建三个块，代表判断条件，while循环内部块，while循环外
         expression_block = builder.append_basic_block()
         while_statement_block = builder.append_basic_block()
         end_while_block = builder.append_basic_block()
 
-        self.blockToBreak.append(end_while_block)
-        self.blockToContinue.append(expression_block)
+        self.block_to_continue.append(expression_block)
+        self.block_to_break.append(end_while_block)
 
-        # expression_block
         builder.branch(expression_block)
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(expression_block))
         result = self.visit(ctx.getChild(2))
-        condition = to_bool(result, self.irBuilder[-1])
-        self.irBuilder[-1].cbranch(condition['value'], while_statement_block, end_while_block)
+        self.irBuilder[-1].cbranch(to_bool(result, self.irBuilder[-1])['value'], while_statement_block, end_while_block)
 
-        # while_statement_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(while_statement_block))
-        # print("this block to break", self.blockToBreak[-1])
         self.visit(ctx.getChild(4))
         if not self.irBuilder[-1].block.is_terminated:
             self.irBuilder[-1].branch(expression_block)
 
-        # end_while_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(end_while_block))
-
-        self.blockToContinue.pop()
-        self.blockToBreak.pop()
+        self.block_to_break.pop()
+        self.block_to_continue.pop()
 
     # Visit a parse tree produced by cpp14Parser#doWhileStatement.
     def visitDoWhileStatement(self, ctx: cpp14Parser.DoWhileStatementContext):
         builder = self.irBuilder[-1]
-        # 新建语法块，do_statement_block,expression_block,end_while_block
         do_statement_block = builder.append_basic_block()
         expression_block = builder.append_basic_block()
         end_while_block = builder.append_basic_block()
-        self.blockToBreak.append(end_while_block)
-        self.blockToContinue.append(expression_block)
 
-        # do_statement_block
+        self.block_to_continue.append(expression_block)
+        self.block_to_break.append(end_while_block)
+
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(do_statement_block))
         self.visit(ctx.getChild(1))
         if not self.irBuilder[-1].block.is_terminated:
             self.irBuilder[-1].branch(expression_block)
 
-        # expression_block
         self.irBuilder[-1].branch(expression_block)
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(expression_block))
         result = self.visit(ctx.getChild(4))
-        condition = to_bool(result, self.irBuilder[-1])
-        self.irBuilder[-1].cbranch(condition['value'], do_statement_block, end_while_block)
+        self.irBuilder[-1].cbranch(to_bool(result, self.irBuilder[-1])['value'], do_statement_block, end_while_block)
 
-        # end_while_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(end_while_block))
-        self.blockToContinue.pop()
-        self.blockToBreak.pop()
+        self.block_to_break.pop()
+        self.block_to_continue.pop()
 
     # Visit a parse tree produced by cpp14Parser#forStatement.
     def visitForStatement(self, ctx: cpp14Parser.ForStatementContext):
-        builder = self.irBuilder[-1]
-        # 判断三个expression是否存在
         child_count = ctx.getChildCount()
-        flag1 = True
-        flag2 = True
-        flag3 = True
+        builder = self.irBuilder[-1]
+        expression_index = None
 
+        flags = [True, True, True, True]  # 三个表达式是否在, 第0个是占位符
         if ctx.getChild(2).getText() == ';':
-            flag1 = False
+            flags[1] = False
         for i in range(child_count - 1):
             text1 = ctx.getChild(i).getText()
             text2 = ctx.getChild(i + 1).getText()
@@ -601,76 +575,70 @@ class NewCpp14Visitor(cpp14Visitor):
                 expression_index = i + 1
                 break
             if text1 == text2:
-                flag2 = False
+                flags[2] = False
         if ctx.getChild(child_count - 3).getText() == ';':
-            flag3 = False
+            flags[3] = False
 
-        # 运行第一个forExprSet的语句
-        if flag1:
+        if flags[1]:
             self.visit(ctx.getChild(2))
 
-        # 新建语法块，judge_block,loop_block,for_expr3_block,end_loop_block
         judge_block = builder.append_basic_block()
         loop_block = builder.append_basic_block()
         for_expr3_block = builder.append_basic_block()
         end_loop_block = builder.append_basic_block()
-        self.blockToBreak.append(end_loop_block)
-        self.blockToContinue.append(for_expr3_block)
+        self.block_to_continue.append(for_expr3_block)
+        self.block_to_break.append(end_loop_block)
 
-        # judge_block
-        if flag2:
+        if flags[2]:
             self.irBuilder[-1].branch(judge_block)
             self.irBuilder.pop()
             self.irBuilder.append(ir.IRBuilder(judge_block))
             result = self.visit(ctx.getChild(expression_index))
-            condition = to_bool(result, self.irBuilder[-1])
-            self.irBuilder[-1].cbranch(condition['value'], loop_block, end_loop_block)
+            self.irBuilder[-1].cbranch(to_bool(result, self.irBuilder[-1])['value'], loop_block, end_loop_block)
 
-        # loop_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(loop_block))
         self.visit(ctx.getChild(child_count - 1))
         if not self.irBuilder[-1].block.is_terminated:
             self.irBuilder[-1].branch(for_expr3_block)
 
-        # for_expr3_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(for_expr3_block))
-        if flag3:
+        if flags[3]:
             self.visit(ctx.getChild(child_count - 3))
-        if flag2:
+        if flags[2]:
             self.irBuilder[-1].branch(judge_block)
         else:
             self.irBuilder[-1].branch(loop_block)
 
-        # end_loop_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(end_loop_block))
-        self.blockToBreak.pop()
-        self.blockToContinue.pop()
+        self.block_to_break.pop()
+        self.block_to_continue.pop()
 
     # Visit a parse tree produced by cpp14Parser#returnStatement.
     def visitReturnStatement(self, ctx: cpp14Parser.ReturnStatementContext):
         if ctx.expression() is None:
             self.irBuilder[-1].ret_void()
         else:
-            self.irBuilder[-1].ret(self.visit(ctx.expression())['value'])
+            return_value = self.visit(ctx.expression())['value']
+            self.irBuilder[-1].ret(return_value)
         return
 
     # Visit a parse tree produced by cpp14Parser#breakStatement.
     def visitBreakStatement(self, ctx: cpp14Parser.BreakStatementContext):
-        if self.blockToBreak:
+        if self.block_to_break:
             builder = self.irBuilder[-1]
-            builder.branch(self.blockToBreak[-1])
+            builder.branch(self.block_to_break[-1])
         else:
             raise BaseException("cannot break")        
         return
 
     # Visit a parse tree produced by cpp14Parser#continueStatement.
     def visitContinueStatement(self, ctx: cpp14Parser.ContinueStatementContext):
-        if self.blockToContinue:
+        if self.block_to_continue:
             builder = self.irBuilder[-1]
-            builder.branch(self.blockToContinue[-1])
+            builder.branch(self.block_to_continue[-1])
         else:
             raise BaseException("cannot continue")
         return
@@ -678,102 +646,87 @@ class NewCpp14Visitor(cpp14Visitor):
     # Visit a parse tree produced by cpp14Parser#normalArrDecl.
     def visitNormalArrDecl(self, ctx: cpp14Parser.NormalArrDeclContext):
         array_length = int(ctx.getChild(3).getText())
-        # 数据类型
         array_type = self.visit(ctx.getChild(0))
-        llvm_array_type = ir.ArrayType(array_type, array_length)
-        # 数据标识符
         array_name = ctx.getChild(1).getText()
-        # 变量的声明
-        if self.symbolTable.current_scope_level == 0:
+        llvm_array_type = ir.ArrayType(array_type, array_length)
+        if self.symbolTable.current_scope_level != 0:
+            builder = self.irBuilder[-1]
+            new_var = builder.alloca(llvm_array_type, name=array_name)
+        else:
             new_var = ir.GlobalVariable(self.irModule, llvm_array_type, name=array_name)
             new_var.linkage = 'internal'
             new_var.initializer = ir.Constant(llvm_array_type, None)
-        else:
-            builder = self.irBuilder[-1]
-            new_var = builder.alloca(llvm_array_type, name=array_name)
 
-        symbol_property = NameProperty(llvm_array_type, new_var)
-        self.symbolTable.addLocal(array_name, symbol_property)
+        self.symbolTable.addLocal(array_name, NameProperty(llvm_array_type, new_var))
+
         child_count = ctx.getChildCount()
         if child_count > 6:
-            # 赋初值给数组中的元素
-            child_to_be_visited = 8
             element_index = 0
+            child_to_be_visited = 8
             builder = self.irBuilder[-1]
-            while element_index < array_length and child_to_be_visited < child_count:
-                address = builder.gep(new_var, [ir.Constant(int32, 0), ir.Constant(int32, element_index)])
+            while child_to_be_visited < child_count and element_index < array_length:
                 value_to_be_stored = self.visit(ctx.getChild(child_to_be_visited))['value']
+                tmp = [ir.Constant(int32, 0), ir.Constant(int32, element_index)]
+                address = builder.gep(new_var, tmp)
                 builder.store(value_to_be_stored, address)
-                child_to_be_visited += 2
                 element_index += 1
+                child_to_be_visited += 2
 
     # Visit a parse tree produced by cpp14Parser#stringDecl.
     def visitStringDecl(self, ctx: cpp14Parser.StringDeclContext):
         array_length = int(ctx.DecimalLiteral().getText())
-        # 数据类型
         array_type = self.visit(ctx.charTypeSpecifier())
-        llvm_array_type = ir.ArrayType(array_type, array_length)
-        # 数据标识符
         array_name = ctx.Identifier().getText()
-        # 变量的声明
+        llvm_array_type = ir.ArrayType(array_type, array_length)
         if self.symbolTable.current_scope_level == 0:
-            if ctx.stringLiteral() is not None:
-                new_var = self.visit(ctx.stringLiteral())['value']
-            else:
+            if ctx.stringLiteral() is None:
                 new_var = ir.GlobalVariable(self.irModule, llvm_array_type, name=array_name)
                 new_var.linkage = 'internal'
                 new_var.initializer = ir.Constant(llvm_array_type, None)
+            else:
+                new_var = self.visit(ctx.stringLiteral())['value']
         else:
             builder = self.irBuilder[-1]
             new_var = builder.alloca(llvm_array_type, name=array_name)
             if ctx.stringLiteral() is not None:
                 string = ast.literal_eval(ctx.stringLiteral().getText())
-                char_num = len(string)
+                str_len = len(string)
                 element_index = 0
-                while element_index < char_num:
+                while element_index < str_len:
                     char_to_be_stored = ir.Constant(array_type, ord(string[element_index]))
-                    address = builder.gep(new_var, [ir.Constant(int32, 0), ir.Constant(int32, element_index)])
+                    tmp = [ir.Constant(int32, 0), ir.Constant(int32, element_index)]
+                    address = builder.gep(new_var, tmp)
                     builder.store(char_to_be_stored, address)
                     element_index += 1
+        self.symbolTable.addLocal(array_name, NameProperty(llvm_array_type, new_var))
 
-        symbol_property = NameProperty(llvm_array_type, new_var)
-        self.symbolTable.addLocal(array_name, symbol_property)
+    # def VarDecl(self, ctx):
 
     # Visit a parse tree produced by cpp14Parser#varDeclWithoutInit.
     def visitVarDeclWithoutInit(self, ctx: cpp14Parser.VarDeclWithoutInitContext):
-        if self.symbolTable.current_scope_level == 0:
-            # 全局变量
+        if self.symbolTable.current_scope_level != 0:
+            builder = self.irBuilder[-1]
+            new_var = builder.alloca(self.type, name=ctx.Identifier().getText())
+            builder.store(ir.Constant(self.type, None), new_var)
+            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(type=self.type, value=new_var))
+        else:
             new_var = GlobalVariable(self.irModule, self.type, ctx.Identifier().getText())
             new_var.linkage = 'internal'
             new_var.initializer = ir.Constant(self.type, None)
             self.symbolTable.addGlobal(ctx.Identifier().getText(), NameProperty(type=self.type, value=new_var))
-        else:
-            # 局部变量
-            builder = self.irBuilder[-1]
-            # 分配空间
-            new_var = builder.alloca(self.type, name=ctx.Identifier().getText())
-            # 存上初值
-            builder.store(ir.Constant(self.type, None), new_var)
-            # 存到符号表里面
-            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(type=self.type, value=new_var))
 
     # Visit a parse tree produced by cpp14Parser#varDeclWithConstInit.
     def visitVarDeclWithConstInit(self, ctx: cpp14Parser.VarDeclWithConstInitContext):
-        if self.symbolTable.current_scope_level == 0:
+        if self.symbolTable.current_scope_level != 0:
+            builder = self.irBuilder[-1]
+            new_var = builder.alloca(self.type, name=ctx.Identifier().getText())
+            builder.store(self.visit(ctx.constExpression())['value'], new_var)
+            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(type=self.type, value=new_var))
+        else:
             new_var = GlobalVariable(self.irModule, self.type, ctx.Identifier().getText())
             new_var.linkage = 'internal'
             new_var.initializer = ir.Constant(self.type, self.visit(ctx.constExpression())['value'])
             self.symbolTable.addGlobal(ctx.Identifier().getText(), NameProperty(type=self.type, value=new_var))
-            # 只需要记录虚拟寄存器即可
-        else:
-            # 局部变量
-            builder = self.irBuilder[-1]
-            # 分配空间
-            new_var = builder.alloca(self.type, name=ctx.Identifier().getText())
-            # 存上初值
-            builder.store(self.visit(ctx.constExpression())['value'], new_var)
-            # 存入符号表
-            self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(type=self.type, value=new_var))
 
     # Visit a parse tree produced by cpp14Parser#varDeclWithInit.
     def visitVarDeclWithInit(self, ctx: cpp14Parser.VarDeclWithInitContext):
@@ -783,7 +736,6 @@ class NewCpp14Visitor(cpp14Visitor):
             builder.store(self.visit(ctx.expression())['value'], address)
             self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(type=self.type, value=address))
             return
-
         raise BaseException("Incorrect initialization of global variables")
 
     # Visit a parse tree produced by cpp14Parser#variableDeclarator.
@@ -801,8 +753,6 @@ class NewCpp14Visitor(cpp14Visitor):
             # print("test1",param)
             # print("test2",self.visit(param))
             parameter_list.append(self.visit(param))
-        
-        
 
         parameter_type_list = list(param['type'] for param in parameter_list)
         # print("111",parameter_type_list)
@@ -812,12 +762,12 @@ class NewCpp14Visitor(cpp14Visitor):
                 raise BaseException("too many varargs")
             if parameter_type_list[-1] != "varargs":
                 raise BaseException("Wrong varargs position")
-            parameter_type_list =  parameter_type_list[:-1]
+            parameter_type_list.pop()
         # print("222",parameter_type_list)
         function_name = ctx.Identifier().getText()
 
         llvm_func_type = ir.FunctionType(
-            self.visit(ctx.typeSpecifier()), parameter_type_list, var_arg= is_var_arg
+            self.visit(ctx.typeSpecifier()), parameter_type_list, var_arg=is_var_arg
         )
         llvm_func = ir.Function(self.irModule, llvm_func_type, name=function_name)
         self.symbolTable.addGlobal(function_name, NameProperty(type=llvm_func_type, value=llvm_func))
@@ -829,14 +779,11 @@ class NewCpp14Visitor(cpp14Visitor):
         parameter_list = []
         for param in ctx.functionParameter():
             parameter_list.append(self.visit(param))
-        parameter_list = tuple(parameter_list)
-        parameter_type_list = tuple(param['type'] for param in parameter_list)
+        parameter_type_list = list(param['type'] for param in parameter_list)
         # print(parameter_list)
         # print(parameter_type_list)
         if "varargs" in parameter_type_list:
             raise BaseException("invalid varargs in function definition")
-
-        
 
         llvm_func_type = ir.FunctionType(return_type, parameter_type_list)
         llvm_func = ir.Function(self.irModule, llvm_func_type, name=function_name)
@@ -852,14 +799,14 @@ class NewCpp14Visitor(cpp14Visitor):
             builder.store(args_value, address)
             self.symbolTable.addLocal(param['name'], NameProperty(param['type'], address))
 
-        ValueToReturn=self.visit(ctx.block())
+        return_value = self.visit(ctx.block())
 
         builder = self.irBuilder[-1]
         if not builder.block.is_terminated:
             builder.ret_void()
         self.symbolTable.exitScope()
 
-        expression = {'type': return_type, 'signed': True, 'value': ValueToReturn}
+        expression = {'type': return_type, 'signed': True, 'value': return_value}
         return expression
 
     # Visit a parse tree produced by cpp14Parser#functionParameter.
@@ -920,7 +867,7 @@ if __name__ == "__main__":
         filename = sys.argv[1]
         outputFilename = filename.split(".")[0]+".ll"
         inputStream = FileStream(filename)
-        print(inputStream)
+        # print(inputStream)
         lexer = cpp14Lexer(inputStream)
         stream = CommonTokenStream(lexer)
 

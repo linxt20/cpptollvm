@@ -2,7 +2,7 @@
 target triple = "x86_64-pc-linux-gnu"
 target datalayout = ""
 
-define i32 @"f"(i32 %".1")
+define i32 @"f"(i32 %".1") 
 {
 __f:
   %"a" = alloca i32
@@ -24,7 +24,7 @@ __f:
   ret i32 %".16"
 }
 
-define i32 @"g"(i32 %".1", double %".2")
+define i32 @"g"(i32 %".1", double %".2") 
 {
 __g:
   %"a" = alloca i32
@@ -35,7 +35,7 @@ __g:
   ret i32 %".6"
 }
 
-define i32 @"main"()
+define i32 @"main"() 
 {
 __main:
   %"d" = alloca i32

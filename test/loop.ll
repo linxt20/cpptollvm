@@ -2,10 +2,10 @@
 target triple = "x86_64-pc-linux-gnu"
 target datalayout = ""
 
-declare i32 @"printf"(i8* %".1", ...)
+declare i32 @"printf"(i8* %".1", ...) 
 
 @"s" = internal global [10 x i32] zeroinitializer
-define i32 @"main"()
+define i32 @"main"() 
 {
 __main:
   %"a" = alloca i32

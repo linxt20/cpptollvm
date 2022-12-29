@@ -3,7 +3,7 @@ target triple = "x86_64-pc-linux-gnu"
 target datalayout = ""
 
 @"a" = internal global i32 0
-define i32 @"main"()
+define i32 @"main"() 
 {
 __main:
   store i32 1, i32* @"a"

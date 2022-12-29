@@ -25,7 +25,8 @@ int KMP()
 		else j = nextone[j];
 	}
 	if(flag == 0)
-		printf("false");
+		printf("false\n");
+	return 0;
 }
 int main()
 {
