@@ -241,6 +241,7 @@ class NewCpp14Visitor(cpp14Visitor):
                             }
                 return expression
             else:
+                print(ctx.getText())
                 raise BaseException("the array isn't defined")
 
         else:
