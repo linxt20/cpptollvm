@@ -642,6 +642,7 @@ class NewCpp14Visitor(cpp14Visitor):
             self.irBuilder[-1].ret_void()
         else:
             self.irBuilder[-1].ret(self.visit(ctx.expression())['value'])
+        return
 
     # Visit a parse tree produced by cpp14Parser#breakStatement.
     def visitBreakStatement(self, ctx: cpp14Parser.BreakStatementContext):
@@ -659,6 +660,7 @@ class NewCpp14Visitor(cpp14Visitor):
             builder.branch(self.blockToContinue[-1])
         else:
             raise BaseException("cannot continue")
+        return
 
     # Visit a parse tree produced by cpp14Parser#normalArrDecl.
     def visitNormalArrDecl(self, ctx: cpp14Parser.NormalArrDeclContext):
