@@ -648,58 +648,58 @@ class NewCpp14Visitor(cpp14Visitor):
     def visitNormalArrDecl(self, ctx: cpp14Parser.NormalArrDeclContext):
         array_length = int(ctx.getChild(3).getText())
         array_type = self.visit(ctx.getChild(0))
-        llvm_array_type = ir.ArrayType(array_type, array_length)
         array_name = ctx.getChild(1).getText()
-        if self.symbolTable.current_scope_level == 0:
+        llvm_array_type = ir.ArrayType(array_type, array_length)
+        if self.symbolTable.current_scope_level != 0:
+            builder = self.irBuilder[-1]
+            new_var = builder.alloca(llvm_array_type, name=array_name)
+        else:
             new_var = ir.GlobalVariable(self.irModule, llvm_array_type, name=array_name)
             new_var.linkage = 'internal'
             new_var.initializer = ir.Constant(llvm_array_type, None)
-        else:
-            builder = self.irBuilder[-1]
-            new_var = builder.alloca(llvm_array_type, name=array_name)
 
-        symbol_property = NameProperty(llvm_array_type, new_var)
-        self.symbolTable.addLocal(array_name, symbol_property)
+        self.symbolTable.addLocal(array_name, NameProperty(llvm_array_type, new_var))
+
         child_count = ctx.getChildCount()
         if child_count > 6:
-            child_to_be_visited = 8
             element_index = 0
+            child_to_be_visited = 8
             builder = self.irBuilder[-1]
-            while element_index < array_length and child_to_be_visited < child_count:
-                address = builder.gep(new_var, [ir.Constant(int32, 0), ir.Constant(int32, element_index)])
+            while child_to_be_visited < child_count and element_index < array_length:
                 value_to_be_stored = self.visit(ctx.getChild(child_to_be_visited))['value']
+                tmp = [ir.Constant(int32, 0), ir.Constant(int32, element_index)]
+                address = builder.gep(new_var, tmp)
                 builder.store(value_to_be_stored, address)
-                child_to_be_visited += 2
                 element_index += 1
+                child_to_be_visited += 2
 
     # Visit a parse tree produced by cpp14Parser#stringDecl.
     def visitStringDecl(self, ctx: cpp14Parser.StringDeclContext):
         array_length = int(ctx.DecimalLiteral().getText())
         array_type = self.visit(ctx.charTypeSpecifier())
-        llvm_array_type = ir.ArrayType(array_type, array_length)
         array_name = ctx.Identifier().getText()
+        llvm_array_type = ir.ArrayType(array_type, array_length)
         if self.symbolTable.current_scope_level == 0:
-            if ctx.stringLiteral() is not None:
-                new_var = self.visit(ctx.stringLiteral())['value']
-            else:
+            if ctx.stringLiteral() is None:
                 new_var = ir.GlobalVariable(self.irModule, llvm_array_type, name=array_name)
                 new_var.linkage = 'internal'
                 new_var.initializer = ir.Constant(llvm_array_type, None)
+            else:
+                new_var = self.visit(ctx.stringLiteral())['value']
         else:
             builder = self.irBuilder[-1]
             new_var = builder.alloca(llvm_array_type, name=array_name)
             if ctx.stringLiteral() is not None:
                 string = ast.literal_eval(ctx.stringLiteral().getText())
-                char_num = len(string)
+                str_len = len(string)
                 element_index = 0
-                while element_index < char_num:
+                while element_index < str_len:
                     char_to_be_stored = ir.Constant(array_type, ord(string[element_index]))
-                    address = builder.gep(new_var, [ir.Constant(int32, 0), ir.Constant(int32, element_index)])
+                    tmp = [ir.Constant(int32, 0), ir.Constant(int32, element_index)]
+                    address = builder.gep(new_var, tmp)
                     builder.store(char_to_be_stored, address)
                     element_index += 1
-
-        symbol_property = NameProperty(llvm_array_type, new_var)
-        self.symbolTable.addLocal(array_name, symbol_property)
+        self.symbolTable.addLocal(array_name, NameProperty(llvm_array_type, new_var))
 
     # def VarDecl(self, ctx):
 
@@ -868,7 +868,7 @@ if __name__ == "__main__":
         filename = sys.argv[1]
         outputFilename = filename.split(".")[0]+".ll"
         inputStream = FileStream(filename)
-        print(inputStream)
+        # print(inputStream)
         lexer = cpp14Lexer(inputStream)
         stream = CommonTokenStream(lexer)
 
