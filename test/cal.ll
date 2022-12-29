@@ -532,64 +532,73 @@ define i32 @"judge"(i8 %".1")
 __judge:
   %"c" = alloca i8
   store i8 %".1", i8* %"c"
-  %".7" = load i8, i8* %"c"
-  %".8" = icmp eq i8 %".7", 43
+  %"typejudge" = alloca i32
+  %".4" = sub i32 0, 1
+  store i32 %".4", i32* %"typejudge"
   %".9" = load i8, i8* %"c"
-  %".10" = icmp eq i8 %".9", 45
-  %".11" = icmp ne i1 %".8", 0
-  %".12" = icmp ne i1 %".10", 0
-  %".13" = or i1 %".11", %".12"
-  %".14" = load i8, i8* %"c"
-  %".15" = icmp eq i8 %".14", 42
-  %".16" = icmp ne i1 %".13", 0
-  %".17" = icmp ne i1 %".15", 0
-  %".18" = or i1 %".16", %".17"
-  %".19" = load i8, i8* %"c"
-  %".20" = icmp eq i8 %".19", 47
-  %".21" = icmp ne i1 %".18", 0
-  %".22" = icmp ne i1 %".20", 0
-  %".23" = or i1 %".21", %".22"
-  %".24" = icmp ne i1 %".23", 0
-  br i1 %".24", label %".4", label %".5"
-.4:
-  ret i32 1
-.5:
-  %".30" = load i8, i8* %"c"
-  %".31" = icmp sle i8 %".30", 57
-  %".32" = load i8, i8* %"c"
-  %".33" = icmp sge i8 %".32", 48
-  %".34" = icmp ne i1 %".31", 0
-  %".35" = icmp ne i1 %".33", 0
-  %".36" = and i1 %".34", %".35"
-  %".37" = icmp ne i1 %".36", 0
-  br i1 %".37", label %".27", label %".28"
+  %".10" = icmp eq i8 %".9", 43
+  %".11" = load i8, i8* %"c"
+  %".12" = icmp eq i8 %".11", 45
+  %".13" = icmp ne i1 %".10", 0
+  %".14" = icmp ne i1 %".12", 0
+  %".15" = or i1 %".13", %".14"
+  %".16" = load i8, i8* %"c"
+  %".17" = icmp eq i8 %".16", 42
+  %".18" = icmp ne i1 %".15", 0
+  %".19" = icmp ne i1 %".17", 0
+  %".20" = or i1 %".18", %".19"
+  %".21" = load i8, i8* %"c"
+  %".22" = icmp eq i8 %".21", 47
+  %".23" = icmp ne i1 %".20", 0
+  %".24" = icmp ne i1 %".22", 0
+  %".25" = or i1 %".23", %".24"
+  %".26" = icmp ne i1 %".25", 0
+  br i1 %".26", label %".6", label %".7"
 .6:
-  ret void
-.27:
-  ret i32 0
-.28:
-  %".43" = load i8, i8* %"c"
-  %".44" = icmp eq i8 %".43", 91
-  %".45" = icmp ne i1 %".44", 0
-  br i1 %".45", label %".40", label %".41"
-.29:
-  br label %".6"
-.40:
-  ret i32 2
-.41:
-  %".51" = load i8, i8* %"c"
-  %".52" = icmp eq i8 %".51", 93
-  %".53" = icmp ne i1 %".52", 0
-  br i1 %".53", label %".48", label %".49"
-.42:
-  br label %".29"
+  store i32 1, i32* %"typejudge"
+  %".29" = load i32, i32* %"typejudge"
+  br label %".8"
+.7:
+  %".34" = load i8, i8* %"c"
+  %".35" = icmp sle i8 %".34", 57
+  %".36" = load i8, i8* %"c"
+  %".37" = icmp sge i8 %".36", 48
+  %".38" = icmp ne i1 %".35", 0
+  %".39" = icmp ne i1 %".37", 0
+  %".40" = and i1 %".38", %".39"
+  %".41" = icmp ne i1 %".40", 0
+  br i1 %".41", label %".31", label %".32"
+.8:
+  %".68" = load i32, i32* %"typejudge"
+  ret i32 %".68"
+.31:
+  store i32 0, i32* %"typejudge"
+  %".44" = load i32, i32* %"typejudge"
+  br label %".33"
+.32:
+  %".49" = load i8, i8* %"c"
+  %".50" = icmp eq i8 %".49", 91
+  %".51" = icmp ne i1 %".50", 0
+  br i1 %".51", label %".46", label %".47"
+.33:
+  br label %".8"
+.46:
+  store i32 2, i32* %"typejudge"
+  %".54" = load i32, i32* %"typejudge"
+  br label %".48"
+.47:
+  %".58" = load i8, i8* %"c"
+  %".59" = icmp eq i8 %".58", 93
+  %".60" = icmp ne i1 %".59", 0
+  br i1 %".60", label %".56", label %".57"
 .48:
-  ret i32 3
-.49:
-  %".56" = sub i32 0, 1
-  ret i32 %".56"
-.50:
-  br label %".42"
+  br label %".33"
+.56:
+  store i32 3, i32* %"typejudge"
+  %".63" = load i32, i32* %"typejudge"
+  br label %".57"
+.57:
+  br label %".48"
 }
 
 define i32 @"main"()

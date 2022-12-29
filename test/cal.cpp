@@ -107,27 +107,26 @@ int cal(){
     return stack[index];
 }
 int judge(char c){
+    int typejudge = -1;
     if(c=='+'|| c=='-'||  c=='*'||  c=='/'){
-        return 1;
+        typejudge = 1;
     }
     else{
         if(c<='9'&&c>='0'){
-            return 0;
+            typejudge = 0;
         }
         else{
             if(c=='['){
-                return 2;
+                typejudge =2;
             }
             else{
                 if(c==']'){
-                    return 3;
-                }
-                else{
-                    return -1;
+                    typejudge =3;
                 }
             } 
         }             
-    }        
+    }
+    return typejudge;
 }
 
 int main(){
