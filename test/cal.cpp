@@ -6,12 +6,12 @@ char strs[100];
 char stringone[100];
 int judgezero;
 
-int Polish(){
+int Polish(){ 
     char s1[100];
     int index_1=0;
     int len;
     for(len=0;strs[len]!=0;len=len+1);
-    int t=1;
+    int t=0; // 这个原来是 t=1;
     int i=0;
     while(i<len){
         if(strs[i]==91){
@@ -95,7 +95,7 @@ int cal(){
         else if(final[i]==47){
             if(stack[index]!=0){
                 stack[index-1]=stack[index-1]/stack[index];
-            index=index-1;
+                index=index-1;
             }
             else{
                 printf("error:divisor is zero\n");
@@ -199,6 +199,7 @@ int main(){
     if(judgezero==1){
         return 0;
     }
+    printf("%s\n",final);
     printf("%d\n",num);
     return 0;
 }

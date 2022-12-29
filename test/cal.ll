@@ -2,15 +2,15 @@
 target triple = "x86_64-pc-linux-gnu"
 target datalayout = ""
 
-declare i32 @"printf"(i8* %".1", ...) 
+declare i32 @"printf"(i8* %".1", ...)
 
-declare i32 @"scanf"(i8* %".1", ...) 
+declare i32 @"scanf"(i8* %".1", ...)
 
 @"final" = internal global [100 x i8] zeroinitializer
 @"strs" = internal global [100 x i8] zeroinitializer
 @"stringone" = internal global [100 x i8] zeroinitializer
 @"judgezero" = internal global i32 0
-define i32 @"Polish"() 
+define i32 @"Polish"()
 {
 __Polish:
   %"s1" = alloca [100 x i8]
@@ -38,301 +38,305 @@ __Polish:
   %".22" = load i32, i32* %"len"
   br label %".6"
 .9:
+  %".24" = getelementptr inbounds [22 x i8], [22 x i8]* @"__string_0", i32 0, i32 0
+  %".25" = load i32, i32* %"len"
+  %".26" = call i32 (i8*, ...) @"printf"(i8* %".24", i32 %".25")
   %"t" = alloca i32
   store i32 1, i32* %"t"
   %"i" = alloca i32
   store i32 0, i32* %"i"
-  br label %".26"
-.26:
-  %".30" = load i32, i32* %"i"
-  %".31" = load i32, i32* %"len"
-  %".32" = icmp slt i32 %".30", %".31"
-  %".33" = icmp ne i1 %".32", 0
-  br i1 %".33", label %".27", label %".28"
-.27:
-  %".38" = load i32, i32* %"i"
-  %".39" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".38"
-  %".40" = load i8, i8* %".39"
-  %".41" = sext i8 %".40" to i32
-  %".42" = icmp eq i32 %".41", 91
-  %".43" = icmp ne i1 %".42", 0
-  br i1 %".43", label %".35", label %".36"
-.28:
-  br label %".289"
-.35:
-  %".45" = load i32, i32* %"index_1"
-  %".46" = add i32 %".45", 1
-  store i32 %".46", i32* %"index_1"
+  br label %".29"
+.29:
+  %".33" = load i32, i32* %"i"
+  %".34" = load i32, i32* %"len"
+  %".35" = icmp slt i32 %".33", %".34"
+  %".36" = icmp ne i1 %".35", 0
+  br i1 %".36", label %".30", label %".31"
+.30:
+  %".41" = load i32, i32* %"i"
+  %".42" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".41"
+  %".43" = load i8, i8* %".42"
+  %".44" = sext i8 %".43" to i32
+  %".45" = icmp eq i32 %".44", 91
+  %".46" = icmp ne i1 %".45", 0
+  br i1 %".46", label %".38", label %".39"
+.31:
+  br label %".292"
+.38:
   %".48" = load i32, i32* %"index_1"
-  %".49" = load i32, i32* %"index_1"
-  %".50" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".49"
-  %".51" = trunc i32 91 to i8
-  store i8 %".51", i8* %".50"
-  %".53" = load i8, i8* %".50"
-  %".54" = load i32, i32* %"i"
-  %".55" = add i32 %".54", 1
-  store i32 %".55", i32* %"i"
+  %".49" = add i32 %".48", 1
+  store i32 %".49", i32* %"index_1"
+  %".51" = load i32, i32* %"index_1"
+  %".52" = load i32, i32* %"index_1"
+  %".53" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".52"
+  %".54" = trunc i32 91 to i8
+  store i8 %".54", i8* %".53"
+  %".56" = load i8, i8* %".53"
   %".57" = load i32, i32* %"i"
-  br label %".37"
-.36:
-  %".62" = load i32, i32* %"i"
-  %".63" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".62"
-  %".64" = load i8, i8* %".63"
-  %".65" = sext i8 %".64" to i32
-  %".66" = icmp eq i32 %".65", 93
-  %".67" = icmp ne i1 %".66", 0
-  br i1 %".67", label %".59", label %".60"
-.37:
-  br label %".26"
-.59:
-  br label %".69"
-.60:
-  %".108" = load i32, i32* %"i"
-  %".109" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".108"
-  %".110" = load i8, i8* %".109"
-  %".111" = sext i8 %".110" to i32
-  %".112" = icmp eq i32 %".111", 43
-  %".113" = load i32, i32* %"i"
-  %".114" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".113"
-  %".115" = load i8, i8* %".114"
-  %".116" = sext i8 %".115" to i32
-  %".117" = icmp eq i32 %".116", 45
-  %".118" = icmp ne i1 %".112", 0
-  %".119" = icmp ne i1 %".117", 0
-  %".120" = or i1 %".118", %".119"
-  %".121" = icmp ne i1 %".120", 0
-  br i1 %".121", label %".105", label %".106"
-.61:
-  br label %".37"
-.69:
-  %".73" = load i32, i32* %"index_1"
-  %".74" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".73"
-  %".75" = load i8, i8* %".74"
-  %".76" = sext i8 %".75" to i32
-  %".77" = icmp ne i32 %".76", 91
-  %".78" = icmp ne i1 %".77", 0
-  br i1 %".78", label %".70", label %".71"
-.70:
-  %".80" = load i32, i32* %"t"
-  %".81" = getelementptr inbounds [100 x i8], [100 x i8]* @"final", i32 0, i32 %".80"
-  %".82" = load i32, i32* %"index_1"
-  %".83" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".82"
-  %".84" = load i8, i8* %".83"
-  store i8 %".84", i8* %".81"
-  %".86" = load i8, i8* %".81"
-  %".87" = load i32, i32* %"t"
-  %".88" = add i32 %".87", 1
-  store i32 %".88", i32* %"t"
+  %".58" = add i32 %".57", 1
+  store i32 %".58", i32* %"i"
+  %".60" = load i32, i32* %"i"
+  br label %".40"
+.39:
+  %".65" = load i32, i32* %"i"
+  %".66" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".65"
+  %".67" = load i8, i8* %".66"
+  %".68" = sext i8 %".67" to i32
+  %".69" = icmp eq i32 %".68", 93
+  %".70" = icmp ne i1 %".69", 0
+  br i1 %".70", label %".62", label %".63"
+.40:
+  br label %".29"
+.62:
+  br label %".72"
+.63:
+  %".111" = load i32, i32* %"i"
+  %".112" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".111"
+  %".113" = load i8, i8* %".112"
+  %".114" = sext i8 %".113" to i32
+  %".115" = icmp eq i32 %".114", 43
+  %".116" = load i32, i32* %"i"
+  %".117" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".116"
+  %".118" = load i8, i8* %".117"
+  %".119" = sext i8 %".118" to i32
+  %".120" = icmp eq i32 %".119", 45
+  %".121" = icmp ne i1 %".115", 0
+  %".122" = icmp ne i1 %".120", 0
+  %".123" = or i1 %".121", %".122"
+  %".124" = icmp ne i1 %".123", 0
+  br i1 %".124", label %".108", label %".109"
+.64:
+  br label %".40"
+.72:
+  %".76" = load i32, i32* %"index_1"
+  %".77" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".76"
+  %".78" = load i8, i8* %".77"
+  %".79" = sext i8 %".78" to i32
+  %".80" = icmp ne i32 %".79", 91
+  %".81" = icmp ne i1 %".80", 0
+  br i1 %".81", label %".73", label %".74"
+.73:
+  %".83" = load i32, i32* %"t"
+  %".84" = getelementptr inbounds [100 x i8], [100 x i8]* @"final", i32 0, i32 %".83"
+  %".85" = load i32, i32* %"index_1"
+  %".86" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".85"
+  %".87" = load i8, i8* %".86"
+  store i8 %".87", i8* %".84"
+  %".89" = load i8, i8* %".84"
   %".90" = load i32, i32* %"t"
-  %".91" = load i32, i32* %"index_1"
-  %".92" = sub i32 %".91", 1
-  store i32 %".92", i32* %"index_1"
+  %".91" = add i32 %".90", 1
+  store i32 %".91", i32* %"t"
+  %".93" = load i32, i32* %"t"
   %".94" = load i32, i32* %"index_1"
-  br label %".69"
-.71:
-  %".96" = load i32, i32* %"index_1"
-  %".97" = sub i32 %".96", 1
-  store i32 %".97", i32* %"index_1"
+  %".95" = sub i32 %".94", 1
+  store i32 %".95", i32* %"index_1"
+  %".97" = load i32, i32* %"index_1"
+  br label %".72"
+.74:
   %".99" = load i32, i32* %"index_1"
-  %".100" = load i32, i32* %"i"
-  %".101" = add i32 %".100", 1
-  store i32 %".101", i32* %"i"
+  %".100" = sub i32 %".99", 1
+  store i32 %".100", i32* %"index_1"
+  %".102" = load i32, i32* %"index_1"
   %".103" = load i32, i32* %"i"
-  br label %".61"
-.105:
-  br label %".123"
-.106:
-  %".174" = load i32, i32* %"i"
-  %".175" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".174"
-  %".176" = load i8, i8* %".175"
-  %".177" = sext i8 %".176" to i32
-  %".178" = icmp eq i32 %".177", 42
-  %".179" = load i32, i32* %"i"
-  %".180" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".179"
-  %".181" = load i8, i8* %".180"
-  %".182" = sext i8 %".181" to i32
-  %".183" = icmp eq i32 %".182", 47
-  %".184" = icmp ne i1 %".178", 0
-  %".185" = icmp ne i1 %".183", 0
-  %".186" = or i1 %".184", %".185"
-  %".187" = icmp ne i1 %".186", 0
-  br i1 %".187", label %".171", label %".172"
-.107:
-  br label %".61"
-.123:
-  %".127" = load i32, i32* %"index_1"
-  %".128" = icmp ne i32 %".127", 0
-  %".129" = load i32, i32* %"index_1"
-  %".130" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".129"
-  %".131" = load i8, i8* %".130"
-  %".132" = sext i8 %".131" to i32
-  %".133" = icmp ne i32 %".132", 91
-  %".134" = icmp ne i1 %".128", 0
-  %".135" = icmp ne i1 %".133", 0
-  %".136" = and i1 %".134", %".135"
-  %".137" = icmp ne i1 %".136", 0
-  br i1 %".137", label %".124", label %".125"
-.124:
-  %".139" = load i32, i32* %"t"
-  %".140" = getelementptr inbounds [100 x i8], [100 x i8]* @"final", i32 0, i32 %".139"
-  %".141" = load i32, i32* %"index_1"
-  %".142" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".141"
-  %".143" = load i8, i8* %".142"
-  store i8 %".143", i8* %".140"
-  %".145" = load i8, i8* %".140"
-  %".146" = load i32, i32* %"t"
-  %".147" = add i32 %".146", 1
-  store i32 %".147", i32* %"t"
+  %".104" = add i32 %".103", 1
+  store i32 %".104", i32* %"i"
+  %".106" = load i32, i32* %"i"
+  br label %".64"
+.108:
+  br label %".126"
+.109:
+  %".177" = load i32, i32* %"i"
+  %".178" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".177"
+  %".179" = load i8, i8* %".178"
+  %".180" = sext i8 %".179" to i32
+  %".181" = icmp eq i32 %".180", 42
+  %".182" = load i32, i32* %"i"
+  %".183" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".182"
+  %".184" = load i8, i8* %".183"
+  %".185" = sext i8 %".184" to i32
+  %".186" = icmp eq i32 %".185", 47
+  %".187" = icmp ne i1 %".181", 0
+  %".188" = icmp ne i1 %".186", 0
+  %".189" = or i1 %".187", %".188"
+  %".190" = icmp ne i1 %".189", 0
+  br i1 %".190", label %".174", label %".175"
+.110:
+  br label %".64"
+.126:
+  %".130" = load i32, i32* %"index_1"
+  %".131" = icmp ne i32 %".130", 0
+  %".132" = load i32, i32* %"index_1"
+  %".133" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".132"
+  %".134" = load i8, i8* %".133"
+  %".135" = sext i8 %".134" to i32
+  %".136" = icmp ne i32 %".135", 91
+  %".137" = icmp ne i1 %".131", 0
+  %".138" = icmp ne i1 %".136", 0
+  %".139" = and i1 %".137", %".138"
+  %".140" = icmp ne i1 %".139", 0
+  br i1 %".140", label %".127", label %".128"
+.127:
+  %".142" = load i32, i32* %"t"
+  %".143" = getelementptr inbounds [100 x i8], [100 x i8]* @"final", i32 0, i32 %".142"
+  %".144" = load i32, i32* %"index_1"
+  %".145" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".144"
+  %".146" = load i8, i8* %".145"
+  store i8 %".146", i8* %".143"
+  %".148" = load i8, i8* %".143"
   %".149" = load i32, i32* %"t"
-  %".150" = load i32, i32* %"index_1"
-  %".151" = sub i32 %".150", 1
-  store i32 %".151", i32* %"index_1"
+  %".150" = add i32 %".149", 1
+  store i32 %".150", i32* %"t"
+  %".152" = load i32, i32* %"t"
   %".153" = load i32, i32* %"index_1"
-  br label %".123"
-.125:
-  %".155" = load i32, i32* %"index_1"
-  %".156" = add i32 %".155", 1
-  store i32 %".156", i32* %"index_1"
+  %".154" = sub i32 %".153", 1
+  store i32 %".154", i32* %"index_1"
+  %".156" = load i32, i32* %"index_1"
+  br label %".126"
+.128:
   %".158" = load i32, i32* %"index_1"
-  %".159" = load i32, i32* %"index_1"
-  %".160" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".159"
-  %".161" = load i32, i32* %"i"
-  %".162" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".161"
-  %".163" = load i8, i8* %".162"
-  store i8 %".163", i8* %".160"
-  %".165" = load i8, i8* %".160"
-  %".166" = load i32, i32* %"i"
-  %".167" = add i32 %".166", 1
-  store i32 %".167", i32* %"i"
+  %".159" = add i32 %".158", 1
+  store i32 %".159", i32* %"index_1"
+  %".161" = load i32, i32* %"index_1"
+  %".162" = load i32, i32* %"index_1"
+  %".163" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".162"
+  %".164" = load i32, i32* %"i"
+  %".165" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".164"
+  %".166" = load i8, i8* %".165"
+  store i8 %".166", i8* %".163"
+  %".168" = load i8, i8* %".163"
   %".169" = load i32, i32* %"i"
-  br label %".107"
-.171:
-  br label %".189"
-.172:
-  br label %".240"
-.173:
-  br label %".107"
-.189:
-  %".193" = load i32, i32* %"index_1"
-  %".194" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".193"
-  %".195" = load i8, i8* %".194"
-  %".196" = sext i8 %".195" to i32
-  %".197" = icmp eq i32 %".196", 42
-  %".198" = load i32, i32* %"index_1"
-  %".199" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".198"
-  %".200" = load i8, i8* %".199"
-  %".201" = sext i8 %".200" to i32
-  %".202" = icmp eq i32 %".201", 47
-  %".203" = icmp ne i1 %".197", 0
-  %".204" = icmp ne i1 %".202", 0
-  %".205" = or i1 %".203", %".204"
-  %".206" = icmp ne i1 %".205", 0
-  br i1 %".206", label %".190", label %".191"
-.190:
-  %".208" = load i32, i32* %"t"
-  %".209" = getelementptr inbounds [100 x i8], [100 x i8]* @"final", i32 0, i32 %".208"
-  %".210" = load i32, i32* %"index_1"
-  %".211" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".210"
-  %".212" = load i8, i8* %".211"
-  store i8 %".212", i8* %".209"
-  %".214" = load i8, i8* %".209"
-  %".215" = load i32, i32* %"t"
-  %".216" = add i32 %".215", 1
-  store i32 %".216", i32* %"t"
+  %".170" = add i32 %".169", 1
+  store i32 %".170", i32* %"i"
+  %".172" = load i32, i32* %"i"
+  br label %".110"
+.174:
+  br label %".192"
+.175:
+  br label %".243"
+.176:
+  br label %".110"
+.192:
+  %".196" = load i32, i32* %"index_1"
+  %".197" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".196"
+  %".198" = load i8, i8* %".197"
+  %".199" = sext i8 %".198" to i32
+  %".200" = icmp eq i32 %".199", 42
+  %".201" = load i32, i32* %"index_1"
+  %".202" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".201"
+  %".203" = load i8, i8* %".202"
+  %".204" = sext i8 %".203" to i32
+  %".205" = icmp eq i32 %".204", 47
+  %".206" = icmp ne i1 %".200", 0
+  %".207" = icmp ne i1 %".205", 0
+  %".208" = or i1 %".206", %".207"
+  %".209" = icmp ne i1 %".208", 0
+  br i1 %".209", label %".193", label %".194"
+.193:
+  %".211" = load i32, i32* %"t"
+  %".212" = getelementptr inbounds [100 x i8], [100 x i8]* @"final", i32 0, i32 %".211"
+  %".213" = load i32, i32* %"index_1"
+  %".214" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".213"
+  %".215" = load i8, i8* %".214"
+  store i8 %".215", i8* %".212"
+  %".217" = load i8, i8* %".212"
   %".218" = load i32, i32* %"t"
-  %".219" = load i32, i32* %"index_1"
-  %".220" = sub i32 %".219", 1
-  store i32 %".220", i32* %"index_1"
+  %".219" = add i32 %".218", 1
+  store i32 %".219", i32* %"t"
+  %".221" = load i32, i32* %"t"
   %".222" = load i32, i32* %"index_1"
-  br label %".189"
-.191:
-  %".224" = load i32, i32* %"index_1"
-  %".225" = add i32 %".224", 1
-  store i32 %".225", i32* %"index_1"
+  %".223" = sub i32 %".222", 1
+  store i32 %".223", i32* %"index_1"
+  %".225" = load i32, i32* %"index_1"
+  br label %".192"
+.194:
   %".227" = load i32, i32* %"index_1"
-  %".228" = load i32, i32* %"index_1"
-  %".229" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".228"
-  %".230" = load i32, i32* %"i"
-  %".231" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".230"
-  %".232" = load i8, i8* %".231"
-  store i8 %".232", i8* %".229"
-  %".234" = load i8, i8* %".229"
-  %".235" = load i32, i32* %"i"
-  %".236" = add i32 %".235", 1
-  store i32 %".236", i32* %"i"
+  %".228" = add i32 %".227", 1
+  store i32 %".228", i32* %"index_1"
+  %".230" = load i32, i32* %"index_1"
+  %".231" = load i32, i32* %"index_1"
+  %".232" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".231"
+  %".233" = load i32, i32* %"i"
+  %".234" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".233"
+  %".235" = load i8, i8* %".234"
+  store i8 %".235", i8* %".232"
+  %".237" = load i8, i8* %".232"
   %".238" = load i32, i32* %"i"
-  br label %".173"
-.240:
-  %".244" = load i32, i32* %"i"
-  %".245" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".244"
-  %".246" = load i8, i8* %".245"
-  %".247" = sext i8 %".246" to i32
-  %".248" = icmp sle i32 %".247", 57
-  %".249" = load i32, i32* %"i"
-  %".250" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".249"
-  %".251" = load i8, i8* %".250"
-  %".252" = sext i8 %".251" to i32
-  %".253" = icmp sge i32 %".252", 48
-  %".254" = icmp ne i1 %".248", 0
-  %".255" = icmp ne i1 %".253", 0
-  %".256" = and i1 %".254", %".255"
-  %".257" = icmp ne i1 %".256", 0
-  br i1 %".257", label %".241", label %".242"
-.241:
-  %".259" = load i32, i32* %"t"
-  %".260" = getelementptr inbounds [100 x i8], [100 x i8]* @"final", i32 0, i32 %".259"
-  %".261" = load i32, i32* %"i"
-  %".262" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".261"
-  %".263" = load i8, i8* %".262"
-  store i8 %".263", i8* %".260"
-  %".265" = load i8, i8* %".260"
-  %".266" = load i32, i32* %"t"
-  %".267" = add i32 %".266", 1
-  store i32 %".267", i32* %"t"
+  %".239" = add i32 %".238", 1
+  store i32 %".239", i32* %"i"
+  %".241" = load i32, i32* %"i"
+  br label %".176"
+.243:
+  %".247" = load i32, i32* %"i"
+  %".248" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".247"
+  %".249" = load i8, i8* %".248"
+  %".250" = sext i8 %".249" to i32
+  %".251" = icmp sle i32 %".250", 57
+  %".252" = load i32, i32* %"i"
+  %".253" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".252"
+  %".254" = load i8, i8* %".253"
+  %".255" = sext i8 %".254" to i32
+  %".256" = icmp sge i32 %".255", 48
+  %".257" = icmp ne i1 %".251", 0
+  %".258" = icmp ne i1 %".256", 0
+  %".259" = and i1 %".257", %".258"
+  %".260" = icmp ne i1 %".259", 0
+  br i1 %".260", label %".244", label %".245"
+.244:
+  %".262" = load i32, i32* %"t"
+  %".263" = getelementptr inbounds [100 x i8], [100 x i8]* @"final", i32 0, i32 %".262"
+  %".264" = load i32, i32* %"i"
+  %".265" = getelementptr inbounds [100 x i8], [100 x i8]* @"strs", i32 0, i32 %".264"
+  %".266" = load i8, i8* %".265"
+  store i8 %".266", i8* %".263"
+  %".268" = load i8, i8* %".263"
   %".269" = load i32, i32* %"t"
-  %".270" = load i32, i32* %"i"
-  %".271" = add i32 %".270", 1
-  store i32 %".271", i32* %"i"
+  %".270" = add i32 %".269", 1
+  store i32 %".270", i32* %"t"
+  %".272" = load i32, i32* %"t"
   %".273" = load i32, i32* %"i"
-  br label %".240"
-.242:
-  %".275" = load i32, i32* %"t"
-  %".276" = getelementptr inbounds [100 x i8], [100 x i8]* @"final", i32 0, i32 %".275"
-  %".277" = trunc i32 32 to i8
-  store i8 %".277", i8* %".276"
-  %".279" = load i8, i8* %".276"
-  %".280" = load i32, i32* %"t"
-  %".281" = add i32 %".280", 1
-  store i32 %".281", i32* %"t"
+  %".274" = add i32 %".273", 1
+  store i32 %".274", i32* %"i"
+  %".276" = load i32, i32* %"i"
+  br label %".243"
+.245:
+  %".278" = load i32, i32* %"t"
+  %".279" = getelementptr inbounds [100 x i8], [100 x i8]* @"final", i32 0, i32 %".278"
+  %".280" = trunc i32 32 to i8
+  store i8 %".280", i8* %".279"
+  %".282" = load i8, i8* %".279"
   %".283" = load i32, i32* %"t"
-  br label %".173"
-.289:
-  %".293" = load i32, i32* %"index_1"
-  %".294" = icmp ne i32 %".293", 0
-  %".295" = icmp ne i1 %".294", 0
-  br i1 %".295", label %".290", label %".291"
-.290:
-  %".297" = load i32, i32* %"t"
-  %".298" = getelementptr inbounds [100 x i8], [100 x i8]* @"final", i32 0, i32 %".297"
-  %".299" = load i32, i32* %"index_1"
-  %".300" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".299"
-  %".301" = load i8, i8* %".300"
-  store i8 %".301", i8* %".298"
-  %".303" = load i8, i8* %".298"
-  %".304" = load i32, i32* %"t"
-  %".305" = add i32 %".304", 1
-  store i32 %".305", i32* %"t"
+  %".284" = add i32 %".283", 1
+  store i32 %".284", i32* %"t"
+  %".286" = load i32, i32* %"t"
+  br label %".176"
+.292:
+  %".296" = load i32, i32* %"index_1"
+  %".297" = icmp ne i32 %".296", 0
+  %".298" = icmp ne i1 %".297", 0
+  br i1 %".298", label %".293", label %".294"
+.293:
+  %".300" = load i32, i32* %"t"
+  %".301" = getelementptr inbounds [100 x i8], [100 x i8]* @"final", i32 0, i32 %".300"
+  %".302" = load i32, i32* %"index_1"
+  %".303" = getelementptr inbounds [100 x i8], [100 x i8]* %"s1", i32 0, i32 %".302"
+  %".304" = load i8, i8* %".303"
+  store i8 %".304", i8* %".301"
+  %".306" = load i8, i8* %".301"
   %".307" = load i32, i32* %"t"
-  %".308" = load i32, i32* %"index_1"
-  %".309" = sub i32 %".308", 1
-  store i32 %".309", i32* %"index_1"
+  %".308" = add i32 %".307", 1
+  store i32 %".308", i32* %"t"
+  %".310" = load i32, i32* %"t"
   %".311" = load i32, i32* %"index_1"
-  br label %".289"
-.291:
+  %".312" = sub i32 %".311", 1
+  store i32 %".312", i32* %"index_1"
+  %".314" = load i32, i32* %"index_1"
+  br label %".292"
+.294:
   ret i32 0
 }
 
-define i32 @"cal"() 
+@"__string_0" = internal global [22 x i8] c"strs the length is %d\00"
+define i32 @"cal"()
 {
 __cal:
   %"stack" = alloca [100 x i32]
@@ -539,7 +543,7 @@ __cal:
   %".186" = load i32, i32* %"index"
   br label %".163"
 .162:
-  %".188" = getelementptr inbounds [23 x i8], [23 x i8]* @"__string_0", i32 0, i32 0
+  %".188" = getelementptr inbounds [23 x i8], [23 x i8]* @"__string_1", i32 0, i32 0
   %".189" = call i32 (i8*, ...) @"printf"(i8* %".188")
   store i32 1, i32* @"judgezero"
   %".191" = load i32, i32* @"judgezero"
@@ -548,8 +552,8 @@ __cal:
   br label %".153"
 }
 
-@"__string_0" = internal global [23 x i8] c"error:divisor is zero\0a\00"
-define i32 @"judge"(i8 %".1") 
+@"__string_1" = internal global [23 x i8] c"error:divisor is zero\0a\00"
+define i32 @"judge"(i8 %".1")
 {
 __judge:
   %"c" = alloca i8
@@ -631,12 +635,12 @@ __judge:
   br label %".54"
 }
 
-define i32 @"main"() 
+define i32 @"main"()
 {
 __main:
   store i32 0, i32* @"judgezero"
   %".3" = load i32, i32* @"judgezero"
-  %".4" = getelementptr inbounds [3 x i8], [3 x i8]* @"__string_1", i32 0, i32 0
+  %".4" = getelementptr inbounds [3 x i8], [3 x i8]* @"__string_2", i32 0, i32 0
   %".5" = getelementptr inbounds [100 x i8], [100 x i8]* @"stringone", i32 0, i32 0
   %".6" = call i32 (i8*, ...) @"scanf"(i8* %".4", i8* %".5")
   %"len" = alloca i32
@@ -704,7 +708,7 @@ __main:
   %".60" = icmp ne i1 %".59", 0
   br i1 %".60", label %".55", label %".56"
 .49:
-  %".203" = getelementptr inbounds [24 x i8], [24 x i8]* @"__string_9", i32 0, i32 0
+  %".203" = getelementptr inbounds [24 x i8], [24 x i8]* @"__string_10", i32 0, i32 0
   %".204" = call i32 (i8*, ...) @"printf"(i8* %".203")
   ret i32 0
 .50:
@@ -735,7 +739,7 @@ __main:
   %".167" = icmp ne i1 %".166", 0
   br i1 %".167", label %".162", label %".163"
 .62:
-  %".74" = getelementptr inbounds [30 x i8], [30 x i8]* @"__string_2", i32 0, i32 0
+  %".74" = getelementptr inbounds [30 x i8], [30 x i8]* @"__string_3", i32 0, i32 0
   %".75" = call i32 (i8*, ...) @"printf"(i8* %".74")
   ret i32 0
 .63:
@@ -754,7 +758,7 @@ __main:
   %".142" = load i32, i32* %"pst"
   br label %".57"
 .77:
-  %".89" = getelementptr inbounds [42 x i8], [42 x i8]* @"__string_3", i32 0, i32 0
+  %".89" = getelementptr inbounds [42 x i8], [42 x i8]* @"__string_4", i32 0, i32 0
   %".90" = call i32 (i8*, ...) @"printf"(i8* %".89")
   ret i32 0
 .78:
@@ -770,7 +774,7 @@ __main:
 .79:
   br label %".64"
 .92:
-  %".104" = getelementptr inbounds [39 x i8], [39 x i8]* @"__string_4", i32 0, i32 0
+  %".104" = getelementptr inbounds [39 x i8], [39 x i8]* @"__string_5", i32 0, i32 0
   %".105" = call i32 (i8*, ...) @"printf"(i8* %".104")
   ret i32 0
 .93:
@@ -786,7 +790,7 @@ __main:
 .94:
   br label %".79"
 .107:
-  %".119" = getelementptr inbounds [39 x i8], [39 x i8]* @"__string_5", i32 0, i32 0
+  %".119" = getelementptr inbounds [39 x i8], [39 x i8]* @"__string_6", i32 0, i32 0
   %".120" = call i32 (i8*, ...) @"printf"(i8* %".119")
   ret i32 0
 .108:
@@ -802,13 +806,13 @@ __main:
 .109:
   br label %".94"
 .122:
-  %".133" = getelementptr inbounds [36 x i8], [36 x i8]* @"__string_6", i32 0, i32 0
+  %".133" = getelementptr inbounds [36 x i8], [36 x i8]* @"__string_7", i32 0, i32 0
   %".134" = call i32 (i8*, ...) @"printf"(i8* %".133")
   ret i32 0
 .123:
   br label %".109"
 .144:
-  %".155" = getelementptr inbounds [49 x i8], [49 x i8]* @"__string_7", i32 0, i32 0
+  %".155" = getelementptr inbounds [49 x i8], [49 x i8]* @"__string_8", i32 0, i32 0
   %".156" = call i32 (i8*, ...) @"printf"(i8* %".155")
   ret i32 0
 .145:
@@ -848,13 +852,13 @@ __main:
 .175:
   br label %".164"
 .193:
-  %".199" = getelementptr inbounds [20 x i8], [20 x i8]* @"__string_8", i32 0, i32 0
+  %".199" = getelementptr inbounds [20 x i8], [20 x i8]* @"__string_9", i32 0, i32 0
   %".200" = call i32 (i8*, ...) @"printf"(i8* %".199")
   ret i32 0
 .194:
   br label %".50"
 .212:
-  %".218" = getelementptr inbounds [20 x i8], [20 x i8]* @"__string_10", i32 0, i32 0
+  %".218" = getelementptr inbounds [20 x i8], [20 x i8]* @"__string_11", i32 0, i32 0
   %".219" = call i32 (i8*, ...) @"printf"(i8* %".218")
   ret i32 0
 .213:
@@ -869,20 +873,24 @@ __main:
 .224:
   ret i32 0
 .225:
-  %".231" = getelementptr inbounds [4 x i8], [4 x i8]* @"__string_11", i32 0, i32 0
-  %".232" = load i32, i32* %"num"
-  %".233" = call i32 (i8*, ...) @"printf"(i8* %".231", i32 %".232")
+  %".231" = getelementptr inbounds [4 x i8], [4 x i8]* @"__string_12", i32 0, i32 0
+  %".232" = getelementptr inbounds [100 x i8], [100 x i8]* @"final", i32 0, i32 0
+  %".233" = call i32 (i8*, ...) @"printf"(i8* %".231", i8* %".232")
+  %".234" = getelementptr inbounds [4 x i8], [4 x i8]* @"__string_13", i32 0, i32 0
+  %".235" = load i32, i32* %"num"
+  %".236" = call i32 (i8*, ...) @"printf"(i8* %".234", i32 %".235")
   ret i32 0
 }
 
-@"__string_1" = internal global [3 x i8] c"%s\00"
-@"__string_2" = internal global [30 x i8] c"error:input 2 continuous ops\0a\00"
-@"__string_3" = internal global [42 x i8] c"error:input '[' without following number\0a\00"
-@"__string_4" = internal global [39 x i8] c"error:input ']' with following number\0a\00"
-@"__string_5" = internal global [39 x i8] c"error:input number with following '['\0a\00"
-@"__string_6" = internal global [36 x i8] c"error:before ']' there's no number\0a\00"
-@"__string_7" = internal global [49 x i8] c"error:expression cannot start with an op or ']'\0a\00"
-@"__string_8" = internal global [20 x i8] c"error:unmatched []\0a\00"
-@"__string_9" = internal global [24 x i8] c"error:input unaccepted\0a\00"
-@"__string_10" = internal global [20 x i8] c"error:unmatched []\0a\00"
-@"__string_11" = internal global [4 x i8] c"%d\0a\00"
+@"__string_2" = internal global [3 x i8] c"%s\00"
+@"__string_3" = internal global [30 x i8] c"error:input 2 continuous ops\0a\00"
+@"__string_4" = internal global [42 x i8] c"error:input '[' without following number\0a\00"
+@"__string_5" = internal global [39 x i8] c"error:input ']' with following number\0a\00"
+@"__string_6" = internal global [39 x i8] c"error:input number with following '['\0a\00"
+@"__string_7" = internal global [36 x i8] c"error:before ']' there's no number\0a\00"
+@"__string_8" = internal global [49 x i8] c"error:expression cannot start with an op or ']'\0a\00"
+@"__string_9" = internal global [20 x i8] c"error:unmatched []\0a\00"
+@"__string_10" = internal global [24 x i8] c"error:input unaccepted\0a\00"
+@"__string_11" = internal global [20 x i8] c"error:unmatched []\0a\00"
+@"__string_12" = internal global [4 x i8] c"%s\0a\00"
+@"__string_13" = internal global [4 x i8] c"%d\0a\00"
