@@ -11,5 +11,5 @@ __main:
   store i32 0, i32* %"a"
   %".3" = load i32, i32* %"a"
   %".4" = call i32 (i32, ...) @"printf"(i32 %".3", i32 1, i32 2, i32 3)
-  ret void
+  ret i32 0
 }

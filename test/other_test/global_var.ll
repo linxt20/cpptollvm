@@ -1,4 +1,4 @@
-; ModuleID = "globalvar.cpp"
+; ModuleID = "global_var.cpp"
 target triple = "x86_64-pc-linux-gnu"
 target datalayout = ""
 

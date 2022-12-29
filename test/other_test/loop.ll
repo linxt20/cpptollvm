@@ -39,7 +39,7 @@ __main:
   %".24" = icmp ne i1 %".23", 0
   br i1 %".24", label %".18", label %".20"
 .18:
-  %".26" = getelementptr inbounds [21 x i8], [21 x i8]* @"__string_0", i32 0, i32 0
+  %".26" = getelementptr inbounds [23 x i8], [23 x i8]* @"__string_0", i32 0, i32 0
   %".27" = load i32, i32* %"i"
   %".28" = load i32, i32* %"j"
   %".29" = call i32 (i8*, ...) @"printf"(i8* %".26", i32 %".27", i32 %".28")
@@ -69,5 +69,5 @@ __main:
   ret i32 0
 }
 
-@"__string_0" = internal global [21 x i8] c"Hello, world! %d %d\0a\00"
+@"__string_0" = internal global [23 x i8] c"Hello, world!(%d, %d)\0a\00"
 @"__string_1" = internal global [4 x i8] c"%d \00"

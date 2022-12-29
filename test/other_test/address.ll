@@ -6,15 +6,16 @@ declare i32 @"scanf"(i8* %".1", ...)
 
 declare i32 @"printf"(i8* %".1", ...) 
 
-@"a" = internal global i32 0
 define i32 @"main"() 
 {
 __main:
-  %".2" = getelementptr inbounds [3 x i8], [3 x i8]* @"__string_0", i32 0, i32 0
-  %".3" = call i32 (i8*, ...) @"scanf"(i8* %".2", i32* @"a")
-  %".4" = getelementptr inbounds [4 x i8], [4 x i8]* @"__string_1", i32 0, i32 0
-  %".5" = load i32, i32* @"a"
-  %".6" = call i32 (i8*, ...) @"printf"(i8* %".4", i32 %".5")
+  %"a" = alloca i32
+  store i32 0, i32* %"a"
+  %".3" = getelementptr inbounds [3 x i8], [3 x i8]* @"__string_0", i32 0, i32 0
+  %".4" = call i32 (i8*, ...) @"scanf"(i8* %".3", i32* %"a")
+  %".5" = getelementptr inbounds [4 x i8], [4 x i8]* @"__string_1", i32 0, i32 0
+  %".6" = load i32, i32* %"a"
+  %".7" = call i32 (i8*, ...) @"printf"(i8* %".5", i32 %".6")
   ret i32 0
 }
 
