@@ -567,7 +567,7 @@ class NewCpp14Visitor(cpp14Visitor):
         builder = self.irBuilder[-1]
         expression_index = None
 
-        flags = [True, True, True]  # 三个表达式是否在
+        flags = [True, True, True, True]  # 三个表达式是否在, 第0个是占位符
         if ctx.getChild(2).getText() == ';':
             flags[1] = False
         for i in range(child_count - 1):
