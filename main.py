@@ -375,24 +375,22 @@ class NewCpp14Visitor(cpp14Visitor):
                 valid_param_list = param_list[:len(_property.get_type().args)]
             else:
                 valid_param_list = param_list
-
-            if len(valid_param_list) == len(_property.get_type().args):
-                
-                for real_param, param in zip(valid_param_list, _property.get_type().args):
-                    if param != real_param.type:
-                        raise BaseException("wrong args type", real_param.type, param)
-                        
-                ret_value = builder.call(
-                    _property.get_value(), param_list, name='', cconv=None, tail=False, fastmath=()
-                )
-                ret_type = _property.get_type().return_type
-                function_call = {
-                                    "type": ret_type,
-                                    'value': ret_value
-                                }
-                return function_call
-            else:
+            if len(valid_param_list) != len(_property.get_type().args):
                 raise BaseException("wrong args number")
+            for real_param, param in zip(valid_param_list, _property.get_type().args):
+                if param != real_param.type:
+                    raise BaseException("wrong args type", real_param.type, param)
+                    
+            ret_value = builder.call(
+                _property.get_value(), param_list, name='', cconv=None, tail=False, fastmath=()
+            )
+            ret_type = _property.get_type().return_type
+            function_call = {
+                                "type": ret_type,
+                                'value': ret_value
+                            }
+            return function_call
+            
 
     # Visit a parse tree produced by cpp14Parser#ifStatement.
     def visitIfStatement(self, ctx: cpp14Parser.IfStatementContext):
@@ -580,7 +578,6 @@ class NewCpp14Visitor(cpp14Visitor):
         flag1 = True
         flag2 = True
         flag3 = True
-        expression_index = None
 
         if ctx.getChild(2).getText() == ';':
             flag1 = False
@@ -648,7 +645,12 @@ class NewCpp14Visitor(cpp14Visitor):
 
     # Visit a parse tree produced by cpp14Parser#breakStatement.
     def visitBreakStatement(self, ctx: cpp14Parser.BreakStatementContext):
-        return self.visitChildren(ctx)
+        if self.blockToBreak:
+            builder = self.irBuilder[-1]
+            builder.branch(self.blockToBreak[-1])
+        else:
+            raise BaseException("cannot break")        
+        return
 
     # Visit a parse tree produced by cpp14Parser#continueStatement.
     def visitContinueStatement(self, ctx: cpp14Parser.ContinueStatementContext):
@@ -757,7 +759,6 @@ class NewCpp14Visitor(cpp14Visitor):
             builder.store(self.visit(ctx.constExpression())['value'], new_var)
             # 存入符号表
             self.symbolTable.addLocal(ctx.Identifier().getText(), NameProperty(type=self.type, value=new_var))
-##########################################################################################
 
     # Visit a parse tree produced by cpp14Parser#varDeclWithInit.
     def visitVarDeclWithInit(self, ctx: cpp14Parser.VarDeclWithInitContext):
@@ -826,12 +827,14 @@ class NewCpp14Visitor(cpp14Visitor):
             builder.store(args_value, address)
             self.symbolTable.addLocal(param['name'], NameProperty(param['type'], address))
 
+        ValueToReturn=self.visit(ctx.block())
+
         builder = self.irBuilder[-1]
         if not builder.block.is_terminated:
             builder.ret_void()
         self.symbolTable.exitScope()
 
-        expression = {'type': return_type, 'signed': True, 'value': self.visit(ctx.block())}
+        expression = {'type': return_type, 'signed': True, 'value': ValueToReturn}
         return expression
 
     # Visit a parse tree produced by cpp14Parser#functionParameter.
@@ -890,7 +893,7 @@ if __name__ == "__main__":
         filename = sys.argv[1]
         outputFilename = filename.split(".")[0]+".ll"
         inputStream = FileStream(filename)
-
+        print(inputStream)
         lexer = cpp14Lexer(inputStream)
         stream = CommonTokenStream(lexer)
 
