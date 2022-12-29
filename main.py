@@ -363,21 +363,21 @@ class NewCpp14Visitor(cpp14Visitor):
         builder = self.irBuilder[-1]
         function_name = ctx.Identifier().getText()
         _property = self.symbolTable.getProperty(function_name)
-        print("_property.get_type().__class__.__name__",_property.get_type().__class__.__name__)
+        # print("_property.get_type().__class__.__name__",_property.get_type().__class__.__name__)
         if _property.get_type().__class__.__name__ == ir.FunctionType.__name__:
             
             param_list = []
             for expression in ctx.expression():
                 expression_value = self.visit(expression) 
                 param_list.append(expression_value['value'])
-            print("_property.get_type().var_arg",_property.get_type().var_arg)
-            print("paramList & argsList: ", param_list,_property.get_type().args)
+            # print("_property.get_type().var_arg",_property.get_type().var_arg)
+            # print("paramList & argsList: ", param_list,_property.get_type().args)
             if _property.get_type().var_arg:
                 valid_param_list = param_list[:len(_property.get_type().args)]
             else:
                 valid_param_list = param_list
-            print("valid_param_list \n",valid_param_list)
-            print("_property.get_type() \n",_property.get_type())
+            # print("valid_param_list \n",valid_param_list)
+            # print("_property.get_type() \n",_property.get_type())
             if len(valid_param_list) != len(_property.get_type().args):
                 raise BaseException("wrong args number")
             for real_param, param in zip(valid_param_list, _property.get_type().args):
@@ -788,7 +788,9 @@ class NewCpp14Visitor(cpp14Visitor):
     # Visit a parse tree produced by cpp14Parser#functionDecl.
     def visitFunctionDecl(self, ctx: cpp14Parser.FunctionDeclContext):
         parameter_list = []
+        print(ctx.functionParameter())
         for param in ctx.functionParameter():
+            print("test",param)
             parameter_list.append(self.visit(param))
 
         parameter_type_list = list(param['type'] for param in parameter_list)
@@ -809,16 +811,19 @@ class NewCpp14Visitor(cpp14Visitor):
 
     # Visit a parse tree produced by cpp14Parser#functionDef.
     def visitFunctionDef(self, ctx: cpp14Parser.FunctionDefContext):
+        function_name = ctx.getChild(1).getText()
         return_type = self.visit(ctx.getChild(0))
         parameter_list = []
         for param in ctx.functionParameter():
             parameter_list.append(self.visit(param))
-
-        parameter_type_list = list(param['type'] for param in parameter_list)
+        parameter_list = tuple(parameter_list)
+        parameter_type_list = tuple(param['type'] for param in parameter_list)
+        print(parameter_list)
+        print(parameter_type_list)
         if "varargs" in parameter_type_list:
             raise BaseException("invalid varargs in function definition")
 
-        function_name = ctx.getChild(1).getText()
+        
 
         llvm_func_type = ir.FunctionType(return_type, parameter_type_list)
         llvm_func = ir.Function(self.irModule, llvm_func_type, name=function_name)
@@ -847,12 +852,14 @@ class NewCpp14Visitor(cpp14Visitor):
     # Visit a parse tree produced by cpp14Parser#functionParameter.
     def visitFunctionParameter(self, ctx: cpp14Parser.FunctionParameterContext):
         expression = {}
+        print(ctx.DOTS())
         if ctx.DOTS() is not None:
             expression['type'] = 'varargs'
             expression['name'] = 'varargs'
         else:
             expression['type'] = self.visit(ctx.getChild(0))
             expression['name'] = ctx.Identifier().getText()
+        print(expression)
         return expression
 
     # Visit a parse tree produced by cpp14Parser#typeSpecifier.

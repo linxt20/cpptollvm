@@ -2,7 +2,6 @@ int f(int a){
     int b = 1;
     a = a + b;
     b = b * a;
-    f(a+1);
     return a+1;
 }
 
