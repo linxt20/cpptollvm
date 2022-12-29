@@ -1,5 +1,5 @@
-; ModuleID = ""
-target triple = "x86_64-pc-linux"
+; ModuleID = "func.cpp"
+target triple = "x86_64-pc-linux-gnu"
 target datalayout = ""
 
 define i32 @"f"(i32 %".1")

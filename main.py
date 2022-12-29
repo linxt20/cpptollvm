@@ -795,23 +795,28 @@ class NewCpp14Visitor(cpp14Visitor):
     # Visit a parse tree produced by cpp14Parser#functionDecl.
     def visitFunctionDecl(self, ctx: cpp14Parser.FunctionDeclContext):
         parameter_list = []
-        print(ctx.functionParameter())
+        # print(ctx.functionParameter())
         for param in ctx.functionParameter():
-            print("test",param)
+            # print("test1",param)
+            # print("test2",self.visit(param))
             parameter_list.append(self.visit(param))
+        
+        
 
         parameter_type_list = list(param['type'] for param in parameter_list)
-        if "varargs" in parameter_type_list:
+        # print("111",parameter_type_list)
+        is_var_arg = "varargs" in parameter_type_list
+        if is_var_arg:
             if parameter_type_list.count("varargs") > 1:
                 raise BaseException("too many varargs")
             if parameter_type_list[-1] != "varargs":
                 raise BaseException("Wrong varargs position")
-            parameter_type_list.pop()
-
+            parameter_type_list =  parameter_type_list[:-1]
+        # print("222",parameter_type_list)
         function_name = ctx.Identifier().getText()
 
         llvm_func_type = ir.FunctionType(
-            self.visit(ctx.typeSpecifier()), parameter_type_list, var_arg="varargs" in parameter_type_list
+            self.visit(ctx.typeSpecifier()), parameter_type_list, var_arg= is_var_arg
         )
         llvm_func = ir.Function(self.irModule, llvm_func_type, name=function_name)
         self.symbolTable.addGlobal(function_name, NameProperty(type=llvm_func_type, value=llvm_func))
@@ -825,8 +830,8 @@ class NewCpp14Visitor(cpp14Visitor):
             parameter_list.append(self.visit(param))
         parameter_list = tuple(parameter_list)
         parameter_type_list = tuple(param['type'] for param in parameter_list)
-        print(parameter_list)
-        print(parameter_type_list)
+        # print(parameter_list)
+        # print(parameter_type_list)
         if "varargs" in parameter_type_list:
             raise BaseException("invalid varargs in function definition")
 
@@ -859,14 +864,14 @@ class NewCpp14Visitor(cpp14Visitor):
     # Visit a parse tree produced by cpp14Parser#functionParameter.
     def visitFunctionParameter(self, ctx: cpp14Parser.FunctionParameterContext):
         expression = {}
-        print(ctx.DOTS())
+        # print(ctx.DOTS())
         if ctx.DOTS() is not None:
             expression['type'] = 'varargs'
             expression['name'] = 'varargs'
         else:
             expression['type'] = self.visit(ctx.getChild(0))
             expression['name'] = ctx.Identifier().getText()
-        print(expression)
+        # print(expression)
         return expression
 
     # Visit a parse tree produced by cpp14Parser#typeSpecifier.
