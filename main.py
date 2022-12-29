@@ -363,18 +363,21 @@ class NewCpp14Visitor(cpp14Visitor):
         builder = self.irBuilder[-1]
         function_name = ctx.Identifier().getText()
         _property = self.symbolTable.getProperty(function_name)
-        if _property.get_type().__class__.__name__ != ir.FunctionType.__name__:
-            raise BaseException("not a function name")
-        else:
+        print("_property.get_type().__class__.__name__",_property.get_type().__class__.__name__)
+        if _property.get_type().__class__.__name__ == ir.FunctionType.__name__:
+            
             param_list = []
             for expression in ctx.expression():
                 expression_value = self.visit(expression) 
                 param_list.append(expression_value['value'])
-
+            print("_property.get_type().var_arg",_property.get_type().var_arg)
+            print("paramList & argsList: ", param_list,_property.get_type().args)
             if _property.get_type().var_arg:
                 valid_param_list = param_list[:len(_property.get_type().args)]
             else:
                 valid_param_list = param_list
+            print("valid_param_list \n",valid_param_list)
+            print("_property.get_type() \n",_property.get_type())
             if len(valid_param_list) != len(_property.get_type().args):
                 raise BaseException("wrong args number")
             for real_param, param in zip(valid_param_list, _property.get_type().args):
@@ -390,6 +393,8 @@ class NewCpp14Visitor(cpp14Visitor):
                                 'value': ret_value
                             }
             return function_call
+        else:    
+            raise BaseException("not a function name")
             
 
     # Visit a parse tree produced by cpp14Parser#ifStatement.
