@@ -6,7 +6,7 @@ char strs[100];
 char stringone[100];
 int judgezero;
 
-void Polish(){
+int Polish(){
     char s1[100];
     int index_1=0;
     int len;
@@ -63,6 +63,7 @@ void Polish(){
         t=t+1;
         index_1=index_1-1;
     }
+    return 0;
 }
 
 int cal(){

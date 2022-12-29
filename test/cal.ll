@@ -10,7 +10,7 @@ declare i32 @"scanf"(i8* %".1", ...)
 @"strs" = internal global [100 x i8] zeroinitializer
 @"stringone" = internal global [100 x i8] zeroinitializer
 @"judgezero" = internal global i32 0
-define void @"Polish"()
+define i32 @"Polish"()
 {
 __Polish:
   %"s1" = alloca [100 x i8]
@@ -314,7 +314,7 @@ __Polish:
   %".296" = load i32, i32* %"index_1"
   br label %".274"
 .276:
-  ret void
+  ret i32 0
 }
 
 define i32 @"cal"()
@@ -818,7 +818,7 @@ __main:
   %".218" = call i32 (i8*, ...) @"printf"(i8* %".217")
   ret i32 0
 .212:
-  call void @"Polish"()
+  %".220" = call i32 @"Polish"()
   %"num" = alloca i32
   %".221" = call i32 @"cal"()
   store i32 %".221", i32* %"num"
