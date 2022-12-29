@@ -1,3 +1,6 @@
+int printf(char* s, ...);
+int scanf(char* s, ...);
+
 int main(){
 	int i = 0, j = 0;
 	char m[100];

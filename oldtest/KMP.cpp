@@ -1,10 +1,20 @@
+int printf(char* s, ...);
+int scanf(char* s, ...);
+
+int calclen(char* s){
+    int i;
+    for(i = 0; s[i]!= '\0'; i++){
+    }
+    return i;
+}
+
 int KMP(char* pattern, char* text){
     int n, m, k, q, i;
     int pai[30];
     pai[0] = -1;
     k = -1;
-    n = strlen(text);
-    m = strlen(pattern);
+    n = calclen(text);
+    m = calclen(pattern);
     for(q = 1; q < m; q++){
         while(k > -1 && pattern[k + 1] != pattern[q])
             k = pai[k];
