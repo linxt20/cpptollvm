@@ -285,21 +285,6 @@ class NewCpp14Visitor(cpp14Visitor):
                         return_value = builder.mul(left['value'], right['value'])
                 elif operation == '/':
                     if left['type'] == double:
-                        return_value = builder.fadd(left['value'], right['value'])
-                    else:
-                        return_value = builder.add(left['value'], right['value'])
-                elif operation == '-':
-                    if left['type'] == double:
-                        return_value = builder.fsub(left['value'], right['value'])
-                    else:
-                        return_value = builder.sub(left['value'], right['value'])
-                elif operation == '*':
-                    if left['type'] == double:
-                        return_value = builder.fmul(left['value'], right['value'])
-                    else:
-                        return_value = builder.mul(left['value'], right['value'])
-                elif operation == '/':
-                    if left['type'] == double:
                         return_value = builder.fdiv(left['value'], right['value'])
                     else:
                         return_value = builder.sdiv(left['value'], right['value'])
