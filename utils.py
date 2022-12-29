@@ -3,10 +3,7 @@ import llvmlite.ir as ir
 
 
 def is_int(llvm_num):
-    if llvm_num['type'] == ir.IntType(64) or llvm_num['type'] == ir.IntType(32) or llvm_num['type'] == ir.IntType(16) \
-            or llvm_num['type'] == ir.IntType(8) or llvm_num['type'] == ir.IntType(1):
-        return True
-    return False
+    return llvm_num['type'] in [ir.IntType(64), ir.IntType(32), ir.IntType(16), ir.IntType(8), ir.IntType(1)]
 
 
 def int_convert(src, target, builder):
@@ -80,9 +77,9 @@ def assign_type_convert(left, right, builder):
     if left['type'] != right['type']:
         if is_int(left) and is_int(right):
             right = int_convert(right, left, builder)
-        elif is_int(left) and is_int(right) == False:
+        elif is_int(left) and is_int(right) is False:
             right = double_to_int(right, left, builder)
-        elif is_int(left) == False and is_int(right):
+        elif is_int(left) is False and is_int(right):
             right = int_to_double(right, builder)
         else:
             pass
@@ -104,4 +101,3 @@ def expr_type_convert(left, right, builder):
     elif left['type'] == ir.DoubleType() and is_int(right):
         right = int_to_double(right, builder)
     return left, right
-
