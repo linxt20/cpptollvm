@@ -110,16 +110,24 @@ int judge(char c){
     if(c=='+'|| c=='-'||  c=='*'||  c=='/'){
         return 1;
     }
-    else if(c<='9'&&c>='0'){
-        return 0;
-    }
-    else if(c=='['){
-        return 2;
-    }
-    else if(c==']'){
-        return 3;
-    }
-    else return -1;
+    else{
+        if(c<='9'&&c>='0'){
+            return 0;
+        }
+        else{
+            if(c=='['){
+                return 2;
+            }
+            else{
+                if(c==']'){
+                    return 3;
+                }
+                else{
+                    return -1;
+                }
+            } 
+        }             
+    }        
 }
 
 int main(){
