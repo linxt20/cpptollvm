@@ -1,47 +1,60 @@
-int printf(char* s, ...);
-int scanf(char* s, ...);
+int printf(char* a, ...);
+int scanf(char* a, ...);
 
-int calclen(char* s){
-    int i;
-    for(i = 0; s[i]!= '\0'; i++){
-    }
-    return i;
+char stringone[100];
+char stringanother[100];
+int nextone[100];
+int len;
+
+int KMP()
+{
+	int i = 0, j = 0, flag = 0, pos;
+	while(stringone[i] != 0)
+	{
+		if(j == -1 || stringone[i] == stringanother[j])
+		{
+			i = i + 1; 
+			j = j + 1; 
+			if(stringanother[j] == 0)
+			{
+				pos = i - len;
+				printf("place: %d\n",pos);
+				flag = 1;
+			}
+		}
+		else j = nextone[j];
+	}
+	if(flag == 0)
+		printf("false");
 }
+int main()
+{
+    int i,k;
+	scanf("%s",stringone);
+	scanf("%s",stringanother);
 
-int KMP(char* pattern, char* text){
-    int n, m, k, q, i;
-    int pai[30];
-    pai[0] = -1;
-    k = -1;
-    n = calclen(text);
-    m = calclen(pattern);
-    for(q = 1; q < m; q++){
-        while(k > -1 && pattern[k + 1] != pattern[q])
-            k = pai[k];
-        if(pattern[k + 1] == pattern[q])
-            k++;
-        pai[q] = k;
-    }
-    q = -1;
-    for(i = 0; i < n; i++){
-        while(q > -1 && pattern[q + 1] != text[i])
-            q = pai[q];
-        if(pattern[q + 1] == text[i])
-            q++;
-        if(i < m - 1)
-            continue;
-        if(q + 1 == m)
-            return i - m + 1;
-    }
-    return -1;
-}
+	len = 0;
+	while(stringanother[len] != 0)
+		len = len + 1;
+    
+	nextone[0] = -1;
 
-int main(){
-	int KMP_result;
-	char text[30] = "qwertyuiopasdfghjklzxcvbnm";
-	char pattern[5] = "ghjk";
-	KMP_result = KMP(pattern, text);
-	printf("%d", KMP_result);
+	for(i = 1; i < len; i = i + 1)
+	{
+		k = nextone[i - 1];
+		nextone[i] = 0;
+		while(k >= 0)
+		{
+			if(stringanother[i - 1] == stringanother[k])
+			{
+				nextone[i] = k+1;
+				break;
+			}
+			else
+				k = nextone[k];
+		}
+	}
+
+	KMP();
 	return 0;
 }
-
