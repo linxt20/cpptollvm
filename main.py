@@ -28,7 +28,7 @@ doublep = ir.PointerType(double)
 
 
 class NewCpp14Visitor(cpp14Visitor):
-    def __init__(self):
+    def __init__(self, _name: str):
         super(cpp14Visitor, self).__init__()
 
         self.irModule = ir.Module()  # llvm生成模块
@@ -44,7 +44,14 @@ class NewCpp14Visitor(cpp14Visitor):
 
         self.string_count = 0  # 全局字符串的数量
 
-        self.irModule.triple = "x86_64-pc-linux"
+        #self.irModule.data_layout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128"
+        self.irModule.triple = "x86_64-pc-linux-gnu"
+        if _name.count("/") > 0:
+            self.irModule.name = _name.split("/")[-1]
+        elif _name.count("\\") > 0:
+            self.irModule.name = _name.split("\\")[-1]
+        else:
+            self.irModule.name = _name
 
         self.type = None
 
@@ -907,7 +914,7 @@ if __name__ == "__main__":
         parser = cpp14Parser(stream)
         tree = parser.translationUnit()
 
-        newVisitor = NewCpp14Visitor()
+        newVisitor = NewCpp14Visitor(filename)
         newVisitor.visit(tree)
 
         if outputFilename:

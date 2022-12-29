@@ -1,9 +1,9 @@
-; ModuleID = ""
-target triple = "x86_64-pc-linux"
+; ModuleID = "main.cpp"
+target triple = "x86_64-pc-linux-gnu"
 target datalayout = ""
 
-define i32 @"main"()
+define i32 @"main"() 
 {
 __main:
-  ret void
+  ret i32 0
 }
