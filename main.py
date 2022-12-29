@@ -402,7 +402,6 @@ class NewCpp14Visitor(cpp14Visitor):
             return function_call
         else:    
             raise BaseException("not a function name")
-            
 
     # Visit a parse tree produced by cpp14Parser#ifStatement.
     def visitIfStatement(self, ctx: cpp14Parser.IfStatementContext):
@@ -764,12 +763,12 @@ class NewCpp14Visitor(cpp14Visitor):
                 raise BaseException("too many varargs")
             if parameter_type_list[-1] != "varargs":
                 raise BaseException("Wrong varargs position")
-            parameter_type_list =  parameter_type_list[:-1]
+            parameter_type_list.pop()
         # print("222",parameter_type_list)
         function_name = ctx.Identifier().getText()
 
         llvm_func_type = ir.FunctionType(
-            self.visit(ctx.typeSpecifier()), parameter_type_list, var_arg= is_var_arg
+            self.visit(ctx.typeSpecifier()), parameter_type_list, var_arg=is_var_arg
         )
         llvm_func = ir.Function(self.irModule, llvm_func_type, name=function_name)
         self.symbolTable.addGlobal(function_name, NameProperty(type=llvm_func_type, value=llvm_func))
@@ -781,8 +780,7 @@ class NewCpp14Visitor(cpp14Visitor):
         parameter_list = []
         for param in ctx.functionParameter():
             parameter_list.append(self.visit(param))
-        parameter_list = tuple(parameter_list)
-        parameter_type_list = tuple(param['type'] for param in parameter_list)
+        parameter_type_list = list(param['type'] for param in parameter_list)
         # print(parameter_list)
         # print(parameter_type_list)
         if "varargs" in parameter_type_list:
@@ -802,14 +800,14 @@ class NewCpp14Visitor(cpp14Visitor):
             builder.store(args_value, address)
             self.symbolTable.addLocal(param['name'], NameProperty(param['type'], address))
 
-        ValueToReturn=self.visit(ctx.block())
+        return_value = self.visit(ctx.block())
 
         builder = self.irBuilder[-1]
         if not builder.block.is_terminated:
             builder.ret_void()
         self.symbolTable.exitScope()
 
-        expression = {'type': return_type, 'signed': True, 'value': ValueToReturn}
+        expression = {'type': return_type, 'signed': True, 'value': return_value}
         return expression
 
     # Visit a parse tree produced by cpp14Parser#functionParameter.
