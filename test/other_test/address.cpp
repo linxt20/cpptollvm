@@ -1,7 +1,5 @@
-int scanf(char *s,...);
-int printf(char *s,...);
-
-
+int scanf(char *s, ...);
+int printf(char *s, ...);
 
 int a;
 

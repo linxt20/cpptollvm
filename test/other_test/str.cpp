@@ -1,7 +1,10 @@
-char ss[100] = "hello, world!";
+int printf(char* s, ...);
+
+char test[100] = "hello, world!";
 
 int main(){
-    // char s[10] = "apple\npen";
-    ss[1] = ss[0];
+    printf("%s", test);
+    test[1] = test[0];
+    printf("%s", test);
     return 0;
 }
