@@ -448,53 +448,45 @@ class NewCpp14Visitor(cpp14Visitor):
 
     # Visit a parse tree produced by cpp14Parser#caseStatement.
     def visitCaseStatement(self, ctx: cpp14Parser.CaseStatementContext):
-        """
-        caseStatement : CASE constExpression COLON statement;
-        """
         self.symbolTable.enterScope()
         judge_block = self.switch_case_label[-1][0]
+        judge_builder = ir.IRBuilder(judge_block)
+
         statement_block = self.switch_case_label[-1][1]
         target_judge_block = self.switch_case_label[-1][2]
         target_statement_block = self.switch_case_label[-1][3]
 
-        judge_builder = ir.IRBuilder(judge_block)
-
         left = self.switch_expression[-1]
         right = self.visit(ctx.getChild(1))
-
         left, right = expr_type_convert(left, right, self.irBuilder[-1])
 
-        if left['type'] == double:
-            return_value = judge_builder.fcmp_ordered('==', left['value'], right['value'])
+        if (left['type'] != double) and left['signed']:
+            return_value = judge_builder.icmp_signed('==', left['value'], right['value'])
+        elif (left['type'] != double) and not (left['signed']):
+            return_value = judge_builder.icmp_unsigned('==', left['value'], right['value'])
         else:
-            if left['signed']:
-                return_value = judge_builder.icmp_signed('==', left['value'], right['value'])
-            else:
-                return_value = judge_builder.icmp_unsigned('==', left['value'], right['value'])
-
+            return_value = judge_builder.fcmp_ordered('==', left['value'], right['value'])
         judge_builder.cbranch(return_value, statement_block, target_judge_block)
 
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(statement_block))
         self.visit(ctx.getChild(3))
+
         if not self.irBuilder[-1].block.is_terminated:
             self.irBuilder[-1].branch(target_statement_block)
 
         self.symbolTable.exitScope()
-
-        self.switch_case_label[-1].pop(0)
-        self.switch_case_label[-1].pop(0)
+        self.switch_case_label[-1].pop()
+        self.switch_case_label[-1].pop()
 
     # Visit a parse tree produced by cpp14Parser#switchStatement.
     def visitSwitchStatement(self, ctx: cpp14Parser.SwitchStatementContext):
         # return self.visitChildren(ctx)
         self.symbolTable.enterScope()
-        case_num = ctx.getChildCount() - 6
         builder = self.irBuilder[-1]
+        case_num = ctx.getChildCount() - 6
 
-        result = self.visit(ctx.getChild(2))
-        self.switch_expression.append(result)
-
+        self.switch_expression.append(self.visit(ctx.getChild(2)))
         temp_array = []
         for i in range(case_num * 2 + 2):
             temp_array.append(builder.append_basic_block())
@@ -502,97 +494,82 @@ class NewCpp14Visitor(cpp14Visitor):
         self.blockToBreak.append(temp_array[-1])
 
         builder.branch(temp_array[0])
-
         for i in range(case_num):
             self.visit(ctx.getChild(i + 5))
 
-        assert len(self.switch_case_label[-1]) == 2
+        # assert len(self.switch_case_label[-1]) == 2
         ir.IRBuilder(self.switch_case_label[-1][0]).branch(self.switch_case_label[-1][1])
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(self.switch_case_label[-1][1]))
 
-        self.switch_expression.pop()
-        self.switch_case_label.pop()
-        self.blockToBreak.pop()
-
         self.symbolTable.exitScope()
+        self.blockToBreak.pop()
+        self.switch_case_label.pop()
+        self.switch_expression.pop()
 
     # Visit a parse tree produced by cpp14Parser#whileStatement.
     def visitWhileStatement(self, ctx: cpp14Parser.WhileStatementContext):
         builder = self.irBuilder[-1]
-        # 新建三个块，代表判断条件，while循环内部块，while循环外
         expression_block = builder.append_basic_block()
         while_statement_block = builder.append_basic_block()
         end_while_block = builder.append_basic_block()
 
-        self.blockToBreak.append(end_while_block)
         self.blockToContinue.append(expression_block)
+        self.blockToBreak.append(end_while_block)
 
-        # expression_block
         builder.branch(expression_block)
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(expression_block))
         result = self.visit(ctx.getChild(2))
-        condition = to_bool(result, self.irBuilder[-1])
-        self.irBuilder[-1].cbranch(condition['value'], while_statement_block, end_while_block)
+        self.irBuilder[-1].cbranch(to_bool(result, self.irBuilder[-1])['value'], while_statement_block, end_while_block)
 
-        # while_statement_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(while_statement_block))
-        # print("this block to break", self.blockToBreak[-1])
         self.visit(ctx.getChild(4))
         if not self.irBuilder[-1].block.is_terminated:
             self.irBuilder[-1].branch(expression_block)
 
-        # end_while_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(end_while_block))
-
-        self.blockToContinue.pop()
         self.blockToBreak.pop()
+        self.blockToContinue.pop()
 
     # Visit a parse tree produced by cpp14Parser#doWhileStatement.
     def visitDoWhileStatement(self, ctx: cpp14Parser.DoWhileStatementContext):
         builder = self.irBuilder[-1]
-        # 新建语法块，do_statement_block,expression_block,end_while_block
         do_statement_block = builder.append_basic_block()
         expression_block = builder.append_basic_block()
         end_while_block = builder.append_basic_block()
-        self.blockToBreak.append(end_while_block)
-        self.blockToContinue.append(expression_block)
 
-        # do_statement_block
+        self.blockToContinue.append(expression_block)
+        self.blockToBreak.append(end_while_block)
+
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(do_statement_block))
         self.visit(ctx.getChild(1))
         if not self.irBuilder[-1].block.is_terminated:
             self.irBuilder[-1].branch(expression_block)
 
-        # expression_block
         self.irBuilder[-1].branch(expression_block)
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(expression_block))
         result = self.visit(ctx.getChild(4))
-        condition = to_bool(result, self.irBuilder[-1])
-        self.irBuilder[-1].cbranch(condition['value'], do_statement_block, end_while_block)
+        self.irBuilder[-1].cbranch(to_bool(result, self.irBuilder[-1])['value'], do_statement_block, end_while_block)
 
-        # end_while_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(end_while_block))
-        self.blockToContinue.pop()
         self.blockToBreak.pop()
+        self.blockToContinue.pop()
 
     # Visit a parse tree produced by cpp14Parser#forStatement.
     def visitForStatement(self, ctx: cpp14Parser.ForStatementContext):
-        builder = self.irBuilder[-1]
-        # 判断三个expression是否存在
         child_count = ctx.getChildCount()
-        flag1 = True
-        flag2 = True
-        flag3 = True
+        builder = self.irBuilder[-1]
+        expression_index = None
 
+        flags = [True, True, True]  # 三个表达式是否在
         if ctx.getChild(2).getText() == ';':
-            flag1 = False
+            flags[1] = False
         for i in range(child_count - 1):
             text1 = ctx.getChild(i).getText()
             text2 = ctx.getChild(i + 1).getText()
@@ -600,49 +577,42 @@ class NewCpp14Visitor(cpp14Visitor):
                 expression_index = i + 1
                 break
             if text1 == text2:
-                flag2 = False
+                flags[2] = False
         if ctx.getChild(child_count - 3).getText() == ';':
-            flag3 = False
+            flags[3] = False
 
-        # 运行第一个forExprSet的语句
-        if flag1:
+        if flags[1]:
             self.visit(ctx.getChild(2))
 
-        # 新建语法块，judge_block,loop_block,for_expr3_block,end_loop_block
         judge_block = builder.append_basic_block()
         loop_block = builder.append_basic_block()
         for_expr3_block = builder.append_basic_block()
         end_loop_block = builder.append_basic_block()
-        self.blockToBreak.append(end_loop_block)
         self.blockToContinue.append(for_expr3_block)
+        self.blockToBreak.append(end_loop_block)
 
-        # judge_block
-        if flag2:
+        if flags[2]:
             self.irBuilder[-1].branch(judge_block)
             self.irBuilder.pop()
             self.irBuilder.append(ir.IRBuilder(judge_block))
             result = self.visit(ctx.getChild(expression_index))
-            condition = to_bool(result, self.irBuilder[-1])
-            self.irBuilder[-1].cbranch(condition['value'], loop_block, end_loop_block)
+            self.irBuilder[-1].cbranch(to_bool(result, self.irBuilder[-1])['value'], loop_block, end_loop_block)
 
-        # loop_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(loop_block))
         self.visit(ctx.getChild(child_count - 1))
         if not self.irBuilder[-1].block.is_terminated:
             self.irBuilder[-1].branch(for_expr3_block)
 
-        # for_expr3_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(for_expr3_block))
-        if flag3:
+        if flags[3]:
             self.visit(ctx.getChild(child_count - 3))
-        if flag2:
+        if flags[2]:
             self.irBuilder[-1].branch(judge_block)
         else:
             self.irBuilder[-1].branch(loop_block)
 
-        # end_loop_block
         self.irBuilder.pop()
         self.irBuilder.append(ir.IRBuilder(end_loop_block))
         self.blockToBreak.pop()
@@ -653,7 +623,8 @@ class NewCpp14Visitor(cpp14Visitor):
         if ctx.expression() is None:
             self.irBuilder[-1].ret_void()
         else:
-            self.irBuilder[-1].ret(self.visit(ctx.expression())['value'])
+            return_value = self.visit(ctx.expression())['value']
+            self.irBuilder[-1].ret(return_value)
         return
 
     # Visit a parse tree produced by cpp14Parser#breakStatement.

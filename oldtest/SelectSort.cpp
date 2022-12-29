@@ -6,7 +6,7 @@ int main(){
 	int m[100];
 	scanf("%d", &n);
 	for(i = 0; i < n; i++){
-		scanf("%d", &m[i]);
+		scanf("%d", m[i]);
 	}
 	for(i = 0; i < n; i++){
 		min = m[i];
@@ -22,6 +22,7 @@ int main(){
 		m[i] = temp;
 	}
 	for(i = 0; i < n; i++)
-		printf("%d ", m[i]);
+		printf("%d", m[i]);
+	printf("\n");
 	return 0;
 }
