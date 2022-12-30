@@ -30,8 +30,7 @@
 		```bash
 		sudo apt install clang-format clang-tidy clang-tools clang clangd
 		sudo apt install lld lldb llvm-dev llvm-runtime llvm python-clang
-		sudo apt install libc++-dev libc++1 libc++abi-dev libc++abi1 libclang-dev
-		libclang1 liblldb-11-dev libllvm-ocaml-dev libomp-dev libomp5
+		sudo apt install libc++-dev libc++1 libc++abi-dev libc++abi1 libclang-dev libclang1 liblldb-11-dev libllvm-ocaml-dev libomp-dev libomp5
 		```
 
 	2. 执行LLVM程序：`lli <filename.ll>`
